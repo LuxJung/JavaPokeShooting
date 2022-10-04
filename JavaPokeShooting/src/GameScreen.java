@@ -3,14 +3,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,7 +15,8 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 // 						              프레임 생성                         키보드 이벤트 처리    스레드 위함
 public class GameFrame extends JFrame implements KeyListener, Runnable {
-
+    public static final int SCREEN_WIDTH = 1280; // 프레임 넓이
+    public static final int SCREEN_HEIGHT = 720; // 프레임 높이
     Image BackGround_img; // 스테이지 1 이미지
     Image BackGround2_img; // 스테이지2 이미지
     Image GameClear_img; // 게임클리어 이미지
@@ -48,14 +45,14 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     static int x, y; // 좌표 변수
     // 키보드 입력
     Keyevent key = new Keyevent();
-    public static boolean KeyEnter = false;
-    public static boolean KeyUp = false;
-    public static boolean KeyDown = false;
-    public static boolean KeyLeft = false;
-    public static boolean KeyRight = false;
-    public static boolean KeySpace = false; // 미사일 발사를 위한 키보드 스페이스키 입력을 추가합니다.
+    public static boolean KEY_ENTER = false;
+    public static boolean KEY_UP = false;
+    public static boolean KEY_DOWN = false;
+    public static boolean KEY_LEFT = false;
+    public static boolean KEY_RIGHT = false;
+    public static boolean KEY_SPACE = false; // 미사일 발사를 위한 키보드 스페이스키 입력을 추가합니다.
 
-    static int cnt; // 각종 타이밍 조절을 무한 루프를 카운터
+    static int CNT; // 각종 타이밍 조절을 무한 루프를 카운터
 
 
     //int boss_Hp; // 유저의 움직이는 속도
@@ -115,20 +112,20 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         setDefaultCloseOperation(GameFrame.EXIT_ON_CLOSE);
 
         setTitle("슈우잉겜");// 프레임 이름
-        setSize(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);// 프레임 크기설정
+        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);// 프레임 크기설정
 
         // 프레임이 윈도우에 표시될때 위치를 세팅하기 위해 현재 모니터의 해상도 값을 받아옴.
         Dimension screen = tk.getScreenSize();
 
         // 프레임을 모니터 화면 정중앙에 배치시키기 위해 좌표 값을 계산합니다.
-        int f_xpos = (int) (screen.getWidth() / 2 - StartGame.SCREEN_WIDTH / 2);
-        int f_ypos = (int) (screen.getHeight() / 2 - StartGame.SCREEN_HEIGHT / 2);
+        int f_xpos = (int) (screen.getWidth() / 2 - SCREEN_WIDTH / 2);
+        int f_ypos = (int) (screen.getHeight() / 2 - SCREEN_HEIGHT / 2);
 
         setLocation(f_xpos, f_ypos);// 프레임을 화면에 배치
         setResizable(false); // 프레임의 크기를 임의로 변경못하게 설정
         setVisible(true); // 프레임을 눈에 보이게 띄웁니다.
 
-        if (KeyEnter) {
+        if (KEY_ENTER) {
 
         }
 
@@ -287,8 +284,8 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 repaint(); // 갱신된 x,y값으로 이미지 새로 그리기
                 Thread.sleep(17);// 20 milli sec 로 스레드 돌리기
 
-                cnt++;
-                if (KeyEnter) {
+                CNT++;
+                if (KEY_ENTER) {
                     GameStatus gs = null;
                     gs.option();
                     trd.suspend();
@@ -301,7 +298,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     }
 
     public void paint(Graphics g) {
-        buffImage = createImage(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);// 더블버퍼링 버퍼 크기를 화면 크기와 같게 설정
+        buffImage = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);// 더블버퍼링 버퍼 크기를 화면 크기와 같게 설정
         buffg = buffImage.getGraphics(); // 버퍼의 그래픽 객체를 얻기
 
         screenDraw(g);
@@ -327,11 +324,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     public void Draw_Player() { // 실제로 그림들을 그릴 부분
         switch (player_Status) {
             case 0: // 평상시
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(Player_img[0], x, y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(Player_img[1], x, y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(Player_img[2], x, y, this);
                 } else {
                     buffg.drawImage(Player_img[3], x, y, this);
@@ -339,11 +336,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
                 break;
 
             case 1: // 전기발사
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(Player_imgatk[0], x, y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(Player_imgatk[1], x, y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(Player_imgatk[2], x, y, this);
                 } else {
                     buffg.drawImage(Player_imgatk[3], x, y, this);
@@ -362,17 +359,17 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         for (int i = 0; i < Missile_List.size(); ++i) {// 미사일 존재 유무를 확인한다.
             ms = (Missile) (Missile_List.get(i));// 미사일 위치값을 확인
             if (ms.who == 0)
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(Missile_img[0], ms.x, ms.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(Missile_img[1], ms.x, ms.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(Missile_img[2], ms.x, ms.y, this);
                 } else {
                     buffg.drawImage(Missile_img[3], ms.x, ms.y, this);
                 }
             // ms.move();// 그려진 미사일을 정해진 숫자만큼 이동시키기
-            if (ms.x > StartGame.SCREEN_WIDTH) { // 미사일이 화면 밖으로 나가면
+            if (ms.x > SCREEN_WIDTH) { // 미사일이 화면 밖으로 나가면
                 Missile_List.remove(i); // 미사일 지우기
             }
 
@@ -383,11 +380,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         for (int k = 0; k < BMissile_List.size(); ++k) {// 미사일 존재 유무를 확인한다.
             bms = (Missile) (BMissile_List.get(k));
             if (bms.who == 2)
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(EMissile_img[0], bms.x, bms.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(EMissile_img[1], bms.x, bms.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(EMissile_img[2], bms.x, bms.y, this);
                 } else {
                     buffg.drawImage(EMissile_img[3], bms.x, bms.y, this);
@@ -400,11 +397,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         for (int j = 0; j < EMissile_List.size(); ++j) {// 미사일 존재 유무를 확인한다.
             ems = (Missile) (EMissile_List.get(j));
             if (ems.who == 1)
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(EMissile_img[0], ems.x, ems.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(EMissile_img[1], ems.x, ems.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(EMissile_img[2], ems.x, ems.y, this);
                 } else {
                     buffg.drawImage(EMissile_img[3], ems.x, ems.y, this);
@@ -424,11 +421,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         if (enemy_kill == 20) {
             for (int i = 0; i < Boss_List.size(); ++i) {
                 bs = (Boss) (Boss_List.get(i));
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(EnemyBoss_img[0], bs.x, bs.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(EnemyBoss_img[1], bs.x, bs.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(EnemyBoss_img[2], bs.x, bs.y, this);
                 } else {
                     buffg.drawImage(EnemyBoss_img[3], bs.x, bs.y, this);
@@ -439,11 +436,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             for (int i = 0; i < Enemy_List.size(); ++i) {
                 en = (Enemy) (Enemy_List.get(i));
                 // buffg.drawImage(Enemy_img, en.x, en.y, this);
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(Enemy_img[0], en.x, en.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(Enemy_img[1], en.x, en.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(Enemy_img[2], en.x, en.y, this);
                 } else {
                     buffg.drawImage(Enemy_img[3], en.x, en.y, this);
@@ -453,11 +450,11 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             for (int i = 0; i < Enemy_List.size(); ++i) {
                 en = (Enemy) (Enemy_List.get(i));
                 // buffg.drawImage(Enemy_img, en.x, en.y, this);
-                if ((cnt / 4 % 4) == 1) {
+                if ((CNT / 4 % 4) == 1) {
                     buffg.drawImage(Logstone_img[0], en.x, en.y, this);
-                } else if ((cnt / 4 % 4) == 2) {
+                } else if ((CNT / 4 % 4) == 2) {
                     buffg.drawImage(Logstone_img[1], en.x, en.y, this);
-                } else if ((cnt / 4 % 4) == 3) {
+                } else if ((CNT / 4 % 4) == 3) {
                     buffg.drawImage(Logstone_img[2], en.x, en.y, this);
                 } else {
                     buffg.drawImage(Logstone_img[3], en.x, en.y, this);
@@ -466,13 +463,13 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         } else if (enemy_kill == 40) {
             for (int i = 0; i < Boss_List.size(); ++i) {
                 bs = (Boss) (Boss_List.get(i));
-                if ((cnt / 5 % 5) == 1) {
+                if ((CNT / 5 % 5) == 1) {
                     buffg.drawImage(Lizamong_img[0], bs.x, bs.y, this);
-                } else if ((cnt / 5 % 5) == 2) {
+                } else if ((CNT / 5 % 5) == 2) {
                     buffg.drawImage(Lizamong_img[1], bs.x, bs.y, this);
-                } else if ((cnt / 5 % 5) == 3) {
+                } else if ((CNT / 5 % 5) == 3) {
                     buffg.drawImage(Lizamong_img[2], bs.x, bs.y, this);
-                } else if ((cnt / 5 % 5) == 4) {
+                } else if ((CNT / 5 % 5) == 4) {
                     buffg.drawImage(Lizamong_img[3], bs.x, bs.y, this);
                 } else {
                     buffg.drawImage(Lizamong_img[4], bs.x, bs.y, this);
@@ -530,15 +527,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         for (int i = 0; i < Item_List.size(); ++i) {
             itm = (Item) Item_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(item_img[0], itm.x, itm.y, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(item_img[1], itm.x, itm.y, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(item_img[2], itm.x, itm.y, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(item_img[3], itm.x, itm.y, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(item_img[4], itm.x, itm.y, this);
             } else {
                 buffg.drawImage(item_img[5], itm.x, itm.y, this);
@@ -548,15 +545,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         for (int i = 0; i < Item2_List.size(); ++i) {
             itm2 = (Item) Item2_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(item2_img[0], itm2.x, itm2.y, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(item2_img[1], itm2.x, itm2.y, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(item2_img[2], itm2.x, itm2.y, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(item2_img[3], itm2.x, itm2.y, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(item2_img[4], itm2.x, itm2.y, this);
             } else {
                 buffg.drawImage(item2_img[5], itm2.x, itm2.y, this);
@@ -566,15 +563,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
         for (int i = 0; i < Item3_List.size(); ++i) {
             itm3 = (Item) Item3_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(item3_img[0], itm3.x, itm3.y, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(item3_img[1], itm3.x, itm3.y, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(item3_img[2], itm3.x, itm3.y, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(item3_img[3], itm3.x, itm3.y, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(item3_img[4], itm3.x, itm3.y, this);
             } else {
                 buffg.drawImage(item3_img[5], itm3.x, itm3.y, this);
@@ -669,7 +666,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
     public void Draw_Background() {
         if (enemy_kill < 21) {
-            buffg.clearRect(0, 0, StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
+            buffg.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             // 화면 지우기 명령은 이제 여기서 실행합니다.
             if (bx > -4660) {
                 // 기본 값이 0인 bx가 -3500 보다 크면 실행
@@ -683,7 +680,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
             }
         }
         if (enemy_kill >= 21) {
-            buffg.clearRect(0, 0, StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
+            buffg.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             if (bx > -4660) {
                 // 기본 값이 0인 bx가 -3500 보다 크면 실행
                 buffg.drawImage(BackGround2_img, bx, 0, this);
@@ -839,15 +836,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         Iteminfo_List.add(itm);
         for (int i = 0; i < Iteminfo_List.size(); ++i) {
             itm = (Item) Iteminfo_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(iteminfo_img[0], 10 ,620, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(iteminfo_img[1], 10, 620, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(iteminfo_img[2], 10, 620, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(iteminfo_img[3], 10, 620, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(iteminfo_img[4], 10, 620, this);
             } else {
                 buffg.drawImage(iteminfo_img[5], 10, 620, this);
@@ -858,15 +855,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         Iteminfo2_List.add(itm2);
         for (int i = 0; i < Iteminfo2_List.size(); ++i) {
             itm2 = (Item) Iteminfo2_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(iteminfo2_img[0], 110, 620, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(iteminfo2_img[1], 110, 620, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(iteminfo2_img[2], 110, 620, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(iteminfo2_img[3], 110, 620, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(iteminfo2_img[4], 110, 620, this);
             } else {
                 buffg.drawImage(iteminfo2_img[5], 110, 620, this);
@@ -877,15 +874,15 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         Iteminfo3_List.add(itm3);
         for (int i = 0; i < Iteminfo3_List.size(); ++i) {
             itm3 = (Item) Iteminfo3_List.get(i);
-            if ((cnt / 6 % 6) == 1) {
+            if ((CNT / 6 % 6) == 1) {
                 buffg.drawImage(iteminfo3_img[0], 210, 620, this);
-            } else if ((cnt / 6 % 6) == 2) {
+            } else if ((CNT / 6 % 6) == 2) {
                 buffg.drawImage(iteminfo3_img[1], 210, 620, this);
-            } else if ((cnt / 6 % 6) == 3) {
+            } else if ((CNT / 6 % 6) == 3) {
                 buffg.drawImage(iteminfo3_img[2], 210, 620, this);
-            } else if ((cnt / 6 % 6) == 4) {
+            } else if ((CNT / 6 % 6) == 4) {
                 buffg.drawImage(iteminfo3_img[3], 210, 620, this);
-            } else if ((cnt / 6 % 6) == 5) {
+            } else if ((CNT / 6 % 6) == 5) {
                 buffg.drawImage(iteminfo3_img[4], 210, 620, this);
             } else {
                 buffg.drawImage(iteminfo3_img[5], 210, 620, this);
