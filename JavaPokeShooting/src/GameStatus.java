@@ -3,15 +3,10 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +16,7 @@ import javax.swing.JLabel;
 public class GameStatus extends JFrame {
     private Image screenImage;
     private Graphics screenGraphic;
-    GameFrame gf ;
+    GameScreen gf ;
     private ImageIcon optExitOn = new ImageIcon(
             "src/images/resize피카츄/옵션창xoff.png");
     private ImageIcon optExitOff = new ImageIcon(
@@ -94,8 +89,8 @@ public class GameStatus extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         // TODO Auto-generated method stub
                         dispose();
-                        GameFrame.trd.resume();
-                        GameFrame.KeyEnter = false;
+                        GameScreen.trd.resume();
+                        GameScreen.KEY_ENTER = false;
                     }
                 });
             }
@@ -172,9 +167,9 @@ public class GameStatus extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         // TODO Auto-generated method stub
 
-                        GameFrame gf = new GameFrame();
+                        GameScreen gf = new GameScreen();
                         gf.dispose1();
-                        GameFrame.trd.stop();
+                        GameScreen.trd.stop();
                     }
                 });
 
@@ -227,8 +222,8 @@ public class GameStatus extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         // TODO Auto-generated method stub
                         dispose();
-                        GameFrame.trd.resume();
-                        GameFrame.KeyEnter = false;
+                        GameScreen.trd.resume();
+                        GameScreen.KEY_ENTER = false;
                     }
                 });
             }
@@ -305,9 +300,9 @@ public class GameStatus extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         // TODO Auto-generated method stub
 
-                        GameFrame gf = new GameFrame();
+                        GameScreen gf = new GameScreen();
                         gf.dispose1();
-                        GameFrame.trd.stop();
+                        GameScreen.trd.stop();
                     }
                 });
 

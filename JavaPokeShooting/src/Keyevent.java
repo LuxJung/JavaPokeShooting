@@ -14,22 +14,22 @@ public class Keyevent implements KeyListener{
         // 키보드가 눌러졌을때 이벤트 처리하는 곳
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                GameFrame.KeyUp = true;
+                GameScreen.KEY_UP = true;
                 break;
             case KeyEvent.VK_DOWN:
-                GameFrame.KeyDown = true;
+                GameScreen.KEY_DOWN = true;
                 break;
             case KeyEvent.VK_LEFT:
-                GameFrame.KeyLeft = true;
+                GameScreen.KEY_LEFT = true;
                 break;
             case KeyEvent.VK_RIGHT:
-                GameFrame.KeyRight = true;
+                GameScreen.KEY_RIGHT = true;
                 break;
             case KeyEvent.VK_SPACE: // 스페이스키 입력 처리 추가
-                GameFrame.KeySpace = true;
+                GameScreen.KEY_SPACE = true;
                 break;
             case KeyEvent.VK_ENTER: // 엔터키 입력 처리 추가
-                GameFrame.KeyEnter = true;
+                GameScreen.KEY_ENTER = true;
 
 
 
@@ -43,22 +43,22 @@ public class Keyevent implements KeyListener{
         // 키보드가 눌러졌다가 때어졌을때 이벤트 처리하는 곳
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                GameFrame.KeyUp = false;
+                GameScreen.KEY_UP = false;
                 break;
             case KeyEvent.VK_DOWN:
-                GameFrame.KeyDown = false;
+                GameScreen.KEY_DOWN = false;
                 break;
             case KeyEvent.VK_LEFT:
-                GameFrame.KeyLeft = false;
+                GameScreen.KEY_LEFT = false;
                 break;
             case KeyEvent.VK_RIGHT:
-                GameFrame.KeyRight = false;
+                GameScreen.KEY_RIGHT = false;
                 break;
             case KeyEvent.VK_SPACE: // 스페이스키 입력 처리 추가
-                GameFrame.KeySpace = false;
+                GameScreen.KEY_SPACE = false;
                 break;
             case KeyEvent.VK_ENTER: // 엔터키 입력 처리 추가
-                GameFrame.KeyEnter = false;
+                GameScreen.KEY_ENTER = false;
                 break;
 
         }
@@ -68,25 +68,25 @@ public class Keyevent implements KeyListener{
         // 실제로 캐릭터 움직임 실현을 위해
         // 위에서 받아들인 키값을 바탕으로
         // 키 입력시마다 5만큼의 이동을 시킨다.
-        if (GameFrame.KeyUp == true)
-            if (GameFrame.y > 80)
-                GameFrame.y -= 5;
-        GameFrame.player_Status = 0;
+        if (GameScreen.KEY_UP == true)
+            if (GameScreen.y > 80)
+                GameScreen.y -= 5;
+        GameScreen.player_Status = 0;
         // 이동키가 눌려지면 플레이어 상태를 0으로 돌립니다.
-        if (GameFrame.KeyDown == true)
-            if (GameFrame.y + GameFrame.Player_img[0].getHeight(null) < StartGame.SCREEN_HEIGHT - 60)
-                GameFrame.y += 5;
-        GameFrame.player_Status = 0;
+        if (GameScreen.KEY_DOWN == true)
+            if (GameScreen.y + GameScreen.Player_img[0].getHeight(null) < GameScreen.SCREEN_HEIGHT - 60)
+                GameScreen.y += 5;
+        GameScreen.player_Status = 0;
         // 이동키가 눌려지면 플레이어 상태를 0으로 돌립니다.
-        if (GameFrame.KeyLeft == true)
-            if (GameFrame.x > 0)
-                GameFrame.x -= 5;
-        GameFrame.player_Status = 0;
+        if (GameScreen.KEY_LEFT == true)
+            if (GameScreen.x > 0)
+                GameScreen.x -= 5;
+        GameScreen.player_Status = 0;
         // 이동키가 눌려지면 플레이어 상태를 0으로 돌립니다.
-        if (GameFrame.KeyRight == true)
-            if (GameFrame.x + GameFrame.Player_img[0].getWidth(null) < StartGame.SCREEN_WIDTH)
-                GameFrame.x += 5;
-        GameFrame.player_Status = 0;
+        if (GameScreen.KEY_RIGHT == true)
+            if (GameScreen.x + GameScreen.Player_img[0].getWidth(null) < GameScreen.SCREEN_WIDTH)
+                GameScreen.x += 5;
+        GameScreen.player_Status = 0;
         // 이동키가 눌려지면 플레이어 상태를 0으로 돌립니다.
 
         //if (GameFrame.KeyEnter == true);

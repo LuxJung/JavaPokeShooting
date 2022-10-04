@@ -4,7 +4,7 @@ import java.awt.event.WindowEvent;
 public class exit extends WindowAdapter {
 
     exit(WindowEvent e){
-        GameFrame gf = (GameFrame)e.getWindow();
+        GameScreen gf = (GameScreen)e.getWindow();
         gf.dispose();
     }
 

@@ -1,5 +1,3 @@
-import java.awt.Point;
-
 public class Missile extends GameSet {
 
     int x;
@@ -31,30 +29,30 @@ public class Missile extends GameSet {
 
     public static void Process_Missile() {
         // 미사일 처리 메소드
-        if (GameFrame.KeySpace) { // 스페이스바 키 상태가 true 일때
-            GameFrame.player_Status = 1;// 미사일 발사하면 플레이어 상태 1로변경
-            if ((GameFrame.cnt % GameFrame.fire_Speed) == 0) {// 플레이어의 미사일 연사속도를 조절한다.
+        if (GameScreen.KEY_SPACE) { // 스페이스바 키 상태가 true 일때
+            GameScreen.player_Status = 1;// 미사일 발사하면 플레이어 상태 1로변경
+            if ((GameScreen.CNT % GameScreen.fire_Speed) == 0) {// 플레이어의 미사일 연사속도를 조절한다.
 
-                switch (GameFrame.missile_status) {
+                switch (GameScreen.missile_status) {
                     case 0: // 아이템 획득 전
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 50, 0, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 50, 0, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
                         break;
 
                     case 1: // 아이템 획득 후
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 50, 0, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 100, 0, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 50, 0, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 100, 0, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
                         break;
 
                     case 2: // 아이템 획득 후
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 0, 15, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 50, 0, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
-                        GameFrame.ms = new Missile(GameFrame.x + 120, GameFrame.y + 100, 350, GameFrame.missile_Speed, 0);
-                        GameFrame.Missile_List.add(GameFrame.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 0, 15, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 50, 0, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 100, 350, GameScreen.missile_Speed, 0);
+                        GameScreen.Missile_List.add(GameScreen.ms);
                         break;
 
                 }
@@ -63,147 +61,147 @@ public class Missile extends GameSet {
         }
 
         // 미사일과 적의 충돌판정
-        for (int i = 0; i < GameFrame.Missile_List.size(); ++i) {
-            GameFrame.ms = (Missile) GameFrame.Missile_List.get(i);// 발사체 추가
-            GameFrame.ms.move();// 발사체 이동
-            if (GameFrame.ms.x > StartGame.SCREEN_WIDTH - 20) {
-                GameFrame.Missile_List.remove(i);// 미사일 스크린 넘어갈 경우 삭제
+        for (int i = 0; i < GameScreen.Missile_List.size(); ++i) {
+            GameScreen.ms = (Missile) GameScreen.Missile_List.get(i);// 발사체 추가
+            GameScreen.ms.move();// 발사체 이동
+            if (GameScreen.ms.x > GameScreen.SCREEN_WIDTH - 20) {
+                GameScreen.Missile_List.remove(i);// 미사일 스크린 넘어갈 경우 삭제
             }
 
-            if (GameFrame.Missile_List.size() != 0) {
+            if (GameScreen.Missile_List.size() != 0) {
 
                 // 미사일과 쫄병들의 충돌판정
-                for (int j = 0; j < GameFrame.Enemy_List.size(); ++j) {
-                    GameFrame.en = (Enemy) GameFrame.Enemy_List.get(j);
+                for (int j = 0; j < GameScreen.Enemy_List.size(); ++j) {
+                    GameScreen.en = (Enemy) GameScreen.Enemy_List.get(j);
 
-                    if (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.en.x, GameFrame.en.y,
-                            GameFrame.Missile_img[0], GameFrame.Enemy_img[0]) && GameFrame.ms.who == 0) {
+                    if (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.en.x, GameScreen.en.y,
+                            GameScreen.Missile_img[0], GameScreen.Enemy_img[0]) && GameScreen.ms.who == 0) {
                         // 미사일의 좌표 및 이미지파일, 적의 좌표및 이미지 파일을 받아
                         // 충돌판정 메소드로 넘기고 true,false값을리턴 받아 true면 아래를 실행합니다.
-                        GameFrame.Missile_List.remove(i);
-                        GameFrame.en.enemy_Hp--;
-                        if (GameFrame.en.enemy_Hp == 0) {
-                            GameFrame.ex = new Explosion(GameFrame.en.x + GameFrame.Enemy_img[0].getWidth(null)-50 / 2,
-                                    GameFrame.en.y + GameFrame.Enemy_img[0].getHeight(null) / 2, 0);
+                        GameScreen.Missile_List.remove(i);
+                        GameScreen.en.enemy_Hp--;
+                        if (GameScreen.en.enemy_Hp == 0) {
+                            GameScreen.ex = new Explosion(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null)-50 / 2,
+                                    GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2, 0);
                             // 적이 위치해있는 곳의 중심 좌표 x,y 에 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
                             // 폭발 설정 값 - 0 : 폭발 , 1 : 단순 피격
-                            GameFrame.Explosion_List.add(GameFrame.ex);
-                            GameFrame.Enemy_List.remove(j);
-                            GameFrame.enemy_kill += 1; // 적 처치 +1
+                            GameScreen.Explosion_List.add(GameScreen.ex);
+                            GameScreen.Enemy_List.remove(j);
+                            GameScreen.enemy_kill += 1; // 적 처치 +1
 
                             if ((int) (Math.round((Math.random() * 100))) > 90) {
-                                GameFrame.itm = new Item(GameFrame.en.x + GameFrame.Enemy_img[0].getWidth(null) / 2,
-                                        GameFrame.en.y + GameFrame.Enemy_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
+                                GameScreen.itm = new Item(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null) / 2,
+                                        GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
                                 // 적이 위치해있는 곳의 중심 좌표 x,y 값과 아이템 이동속도
-                                GameFrame.Item_List.add(GameFrame.itm);// 제거된 적위치에 폭발 이펙트를 추가합니다.
+                                GameScreen.Item_List.add(GameScreen.itm);// 제거된 적위치에 폭발 이펙트를 추가합니다.
                             } else if ((int) (Math.round((Math.random() * 100))) > 95) {
-                                GameFrame.itm2 = new Item(GameFrame.en.x + GameFrame.Enemy_img[0].getWidth(null) / 2,
-                                        GameFrame.en.y + GameFrame.Enemy_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
-                                GameFrame.Item2_List.add(GameFrame.itm2);
+                                GameScreen.itm2 = new Item(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null) / 2,
+                                        GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
+                                GameScreen.Item2_List.add(GameScreen.itm2);
                             } else if ((int) (Math.round((Math.random() * 100))) > 97) {
-                                GameFrame.itm3 = new Item(GameFrame.en.x + GameFrame.Enemy_img[0].getWidth(null) / 2,
-                                        GameFrame.en.y + GameFrame.Enemy_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
-                                GameFrame.Item3_List.add(GameFrame.itm3);
+                                GameScreen.itm3 = new Item(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null) / 2,
+                                        GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
+                                GameScreen.Item3_List.add(GameScreen.itm3);
                             }
                         } else {
-                            GameFrame.ex = new Explosion(GameFrame.en.x + GameFrame.Enemy_img[0].getWidth(null)-50 / 2,
-                                    GameFrame.en.y + GameFrame.Enemy_img[0].getHeight(null) / 2, 1);
+                            GameScreen.ex = new Explosion(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null)-50 / 2,
+                                    GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2, 1);
                             // 적이 위치해있는 곳의 중심 좌표 x,y 에 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
                             // 폭발 설정 값 - 0 : 폭발 , 1 : 단순 피격
-                            GameFrame.Explosion_List.add(GameFrame.ex);
+                            GameScreen.Explosion_List.add(GameScreen.ex);
                         }
                     }
-                    if (GameFrame.Enemy_List.isEmpty()) {
-                        GameFrame.EMissile_List.clear();
+                    if (GameScreen.Enemy_List.isEmpty()) {
+                        GameScreen.EMissile_List.clear();
                     }
                 }
 
                 // 플레이어 미사일 보스 어택
-                for (int j = 0; j < GameFrame.Boss_List.size(); ++j) {
-                    GameFrame.bs = (Boss) GameFrame.Boss_List.get(j);
+                for (int j = 0; j < GameScreen.Boss_List.size(); ++j) {
+                    GameScreen.bs = (Boss) GameScreen.Boss_List.get(j);
 
-                    if (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.bs.x, GameFrame.bs.y,
-                            GameFrame.Missile_img[0], GameFrame.EnemyBoss_img[0]) && GameFrame.ms.who == 0) {
-                        GameFrame.Missile_List.remove(i);
-                        GameFrame.bs.enemy_Hp--;
-                        if (GameFrame.bs.enemy_Hp == 0) {
-                            GameFrame.Boss_List.remove(j);
-                            GameFrame.ex = new Explosion(GameFrame.bs.x + GameFrame.EnemyBoss_img[0].getWidth(null)-450 / 2,
-                                    GameFrame.bs.y + GameFrame.EnemyBoss_img[0].getHeight(null) / 2, 0);
-                            GameFrame.Explosion_List.add(GameFrame.ex);
-                            GameFrame.enemy_kill += 1; // 적 처치 +1
+                    if (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.bs.x, GameScreen.bs.y,
+                            GameScreen.Missile_img[0], GameScreen.EnemyBoss_img[0]) && GameScreen.ms.who == 0) {
+                        GameScreen.Missile_List.remove(i);
+                        GameScreen.bs.enemy_Hp--;
+                        if (GameScreen.bs.enemy_Hp == 0) {
+                            GameScreen.Boss_List.remove(j);
+                            GameScreen.ex = new Explosion(GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null)-450 / 2,
+                                    GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2, 0);
+                            GameScreen.Explosion_List.add(GameScreen.ex);
+                            GameScreen.enemy_kill += 1; // 적 처치 +1
 
                             if ((int) (Math.round((Math.random() * 100))) > 80) {
-                                GameFrame.itm = new Item(GameFrame.bs.x + GameFrame.EnemyBoss_img[0].getWidth(null) / 2,
-                                        GameFrame.bs.y + GameFrame.EnemyBoss_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
+                                GameScreen.itm = new Item(GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null) / 2,
+                                        GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
                                 // 적이 위치해있는 곳의 중심 좌표 x,y 값과 아이템 이동속도
-                                GameFrame.Item_List.add(GameFrame.itm);// 제거된 적위치에 아이템 추가
+                                GameScreen.Item_List.add(GameScreen.itm);// 제거된 적위치에 아이템 추가
                             } else if ((int) (Math.round((Math.random() * 100))) > 90) {
-                                GameFrame.itm2 = new Item(
-                                        GameFrame.bs.x + GameFrame.EnemyBoss_img[0].getWidth(null) / 2,
-                                        GameFrame.bs.y + GameFrame.EnemyBoss_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
-                                GameFrame.Item2_List.add(GameFrame.itm2);
+                                GameScreen.itm2 = new Item(
+                                        GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null) / 2,
+                                        GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
+                                GameScreen.Item2_List.add(GameScreen.itm2);
                             } else if ((int) (Math.round((Math.random() * 100))) > 95) {
-                                GameFrame.itm3 = new Item(
-                                        GameFrame.bs.x + GameFrame.EnemyBoss_img[0].getWidth(null) / 2,
-                                        GameFrame.bs.y + GameFrame.EnemyBoss_img[0].getHeight(null) / 2,
-                                        GameFrame.item_speed);
-                                GameFrame.Item3_List.add(GameFrame.itm3);
+                                GameScreen.itm3 = new Item(
+                                        GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null) / 2,
+                                        GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2,
+                                        GameScreen.item_speed);
+                                GameScreen.Item3_List.add(GameScreen.itm3);
                             }
                         } else {
-                            GameFrame.ex = new Explosion(GameFrame.bs.x + GameFrame.EnemyBoss_img[0].getWidth(null)-450 / 2,
-                                    GameFrame.bs.y + GameFrame.EnemyBoss_img[0].getHeight(null) / 2, 1);
+                            GameScreen.ex = new Explosion(GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null)-450 / 2,
+                                    GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2, 1);
                             // 적이 위치해있는 곳의 중심 좌표 x,y 에 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
                             // 폭발 설정 값 - 0 : 폭발 , 1 : 단순 피격
-                            GameFrame.Explosion_List.add(GameFrame.ex);
+                            GameScreen.Explosion_List.add(GameScreen.ex);
                         }
                     }
-                    if (GameFrame.Boss_List.isEmpty()) {
-                        GameFrame.BMissile_List.clear();
+                    if (GameScreen.Boss_List.isEmpty()) {
+                        GameScreen.BMissile_List.clear();
                     }
                 }
             }
 
             // 쫄 병 미 사 일
             // 상 쇄
-            for (int k = 0; k < GameFrame.EMissile_List.size(); ++k) {
-                GameFrame.ems = (Missile) GameFrame.EMissile_List.get(k);// 발사체 추가
-                if (GameFrame.EMissile_List.size() != 0) {
-                    if (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.ems.x, GameFrame.ems.y,
-                            GameFrame.Missile_img[0], GameFrame.EMissile_img[0]) && GameFrame.ms.who == 0) {
+            for (int k = 0; k < GameScreen.EMissile_List.size(); ++k) {
+                GameScreen.ems = (Missile) GameScreen.EMissile_List.get(k);// 발사체 추가
+                if (GameScreen.EMissile_List.size() != 0) {
+                    if (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.ems.x, GameScreen.ems.y,
+                            GameScreen.Missile_img[0], GameScreen.EMissile_img[0]) && GameScreen.ms.who == 0) {
 
-                        if ((GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.ems.x, GameFrame.ems.y,
-                                GameFrame.Missile_img[0], GameFrame.EMissile_img[0]) && GameFrame.ms.who == 0)
-                                && (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.en.x, GameFrame.en.y,
-                                GameFrame.Missile_img[0], GameFrame.Enemy_img[0]) && GameFrame.ms.who == 0)) {
-                            GameFrame.ex = new Explosion(GameFrame.ms.x + GameFrame.Missile_img[0].getWidth(null)+20,
-                                    GameFrame.ms.y + GameFrame.Missile_img[0].getHeight(null) / 2, 1);
+                        if ((GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.ems.x, GameScreen.ems.y,
+                                GameScreen.Missile_img[0], GameScreen.EMissile_img[0]) && GameScreen.ms.who == 0)
+                                && (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.en.x, GameScreen.en.y,
+                                GameScreen.Missile_img[0], GameScreen.Enemy_img[0]) && GameScreen.ms.who == 0)) {
+                            GameScreen.ex = new Explosion(GameScreen.ms.x + GameScreen.Missile_img[0].getWidth(null)+20,
+                                    GameScreen.ms.y + GameScreen.Missile_img[0].getHeight(null) / 2, 1);
                             // 플레이어자리에충돌용폭발이펙트객체생성
-                            GameFrame.Explosion_List.add(GameFrame.ex);
+                            GameScreen.Explosion_List.add(GameScreen.ex);
                             // 생성한객체를배열로저장
-                            if (GameFrame.Missile_List.size() != 0 && GameFrame.EMissile_List.size() != 0) {
+                            if (GameScreen.Missile_List.size() != 0 && GameScreen.EMissile_List.size() != 0) {
                                 try {
-                                    GameFrame.Missile_List.remove(i);
-                                    GameFrame.EMissile_List.remove(k);
+                                    GameScreen.Missile_List.remove(i);
+                                    GameScreen.EMissile_List.remove(k);
                                 } catch (IndexOutOfBoundsException e) {
                                     System.out.println(e);
                                 }
                             }
                         }
-                        GameFrame.ex = new Explosion(GameFrame.ms.x + GameFrame.Missile_img[0].getWidth(null)+20,
-                                GameFrame.ms.y + GameFrame.Missile_img[0].getHeight(null) / 2, 1);
+                        GameScreen.ex = new Explosion(GameScreen.ms.x + GameScreen.Missile_img[0].getWidth(null)+20,
+                                GameScreen.ms.y + GameScreen.Missile_img[0].getHeight(null) / 2, 1);
                         // 플레이어자리에충돌용폭발이펙트객체생성
-                        GameFrame.Explosion_List.add(GameFrame.ex);
+                        GameScreen.Explosion_List.add(GameScreen.ex);
                         // 생성한객체를배열로저장
-                        if (GameFrame.Missile_List.size() != 0 && GameFrame.EMissile_List.size() != 0) {
+                        if (GameScreen.Missile_List.size() != 0 && GameScreen.EMissile_List.size() != 0) {
                             try {
-                                GameFrame.Missile_List.remove(i);
-                                GameFrame.EMissile_List.remove(k);
+                                GameScreen.Missile_List.remove(i);
+                                GameScreen.EMissile_List.remove(k);
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println(e);
                             }
@@ -219,25 +217,25 @@ public class Missile extends GameSet {
 
             // 보 스 미 사 일
             // 상 쇄
-            for (int k = 0; k < GameFrame.BMissile_List.size(); ++k) {
-                GameFrame.bms = (Missile) GameFrame.BMissile_List.get(k);// 발사체 추가
-                if (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.bms.x, GameFrame.bms.y,
-                        GameFrame.Missile_img[0], GameFrame.EMissile_img[0]) && GameFrame.ms.who == 0) {
+            for (int k = 0; k < GameScreen.BMissile_List.size(); ++k) {
+                GameScreen.bms = (Missile) GameScreen.BMissile_List.get(k);// 발사체 추가
+                if (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.bms.x, GameScreen.bms.y,
+                        GameScreen.Missile_img[0], GameScreen.EMissile_img[0]) && GameScreen.ms.who == 0) {
                     // 적이발사한미사일이플레이어와충돌하는지여부를확인
 
-                    if ((GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.bms.x, GameFrame.bms.y,
-                            GameFrame.Missile_img[0], GameFrame.EMissile_img[0]) && GameFrame.ms.who == 0)
-                            && (GameFrame.Crash(GameFrame.ms.x, GameFrame.ms.y, GameFrame.bs.x, GameFrame.bs.y,
-                            GameFrame.Missile_img[0], GameFrame.EnemyBoss_img[0]) && GameFrame.ms.who == 0)) {
-                        GameFrame.ex = new Explosion(GameFrame.ms.x + GameFrame.Missile_img[0].getWidth(null)+20,
-                                GameFrame.ms.y + GameFrame.Missile_img[0].getHeight(null) / 2, 1);
+                    if ((GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.bms.x, GameScreen.bms.y,
+                            GameScreen.Missile_img[0], GameScreen.EMissile_img[0]) && GameScreen.ms.who == 0)
+                            && (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.bs.x, GameScreen.bs.y,
+                            GameScreen.Missile_img[0], GameScreen.EnemyBoss_img[0]) && GameScreen.ms.who == 0)) {
+                        GameScreen.ex = new Explosion(GameScreen.ms.x + GameScreen.Missile_img[0].getWidth(null)+20,
+                                GameScreen.ms.y + GameScreen.Missile_img[0].getHeight(null) / 2, 1);
                         // 플레이어자리에충돌용폭발이펙트객체생성
-                        GameFrame.Explosion_List.add(GameFrame.ex);
+                        GameScreen.Explosion_List.add(GameScreen.ex);
                         // 생성한객체를배열로저장
-                        if (GameFrame.Missile_List.size() != 0 && GameFrame.EMissile_List.size() != 0) {
+                        if (GameScreen.Missile_List.size() != 0 && GameScreen.EMissile_List.size() != 0) {
                             try {
-                                GameFrame.Missile_List.remove(i);
-                                GameFrame.EMissile_List.remove(k);
+                                GameScreen.Missile_List.remove(i);
+                                GameScreen.EMissile_List.remove(k);
                             } catch (IndexOutOfBoundsException e) {
                                 System.out.println(e);
                             }
@@ -245,15 +243,15 @@ public class Missile extends GameSet {
                         }
                     }
 
-                    GameFrame.ex = new Explosion(GameFrame.ms.x + GameFrame.Missile_img[0].getWidth(null)+20,
-                            GameFrame.ms.y + GameFrame.Missile_img[0].getHeight(null) / 2, 1);
+                    GameScreen.ex = new Explosion(GameScreen.ms.x + GameScreen.Missile_img[0].getWidth(null)+20,
+                            GameScreen.ms.y + GameScreen.Missile_img[0].getHeight(null) / 2, 1);
                     // 플레이어자리에충돌용폭발이펙트객체생성
-                    GameFrame.Explosion_List.add(GameFrame.ex);
+                    GameScreen.Explosion_List.add(GameScreen.ex);
                     // 생성한객체를배열로저장
-                    if (GameFrame.Missile_List.size() != 0 && GameFrame.BMissile_List.size() != 0) {
+                    if (GameScreen.Missile_List.size() != 0 && GameScreen.BMissile_List.size() != 0) {
                         try {
-                            GameFrame.Missile_List.remove(i);
-                            GameFrame.BMissile_List.remove(k);
+                            GameScreen.Missile_List.remove(i);
+                            GameScreen.BMissile_List.remove(k);
                         } catch (IndexOutOfBoundsException e) {
                             System.out.println(e);
                         }
@@ -266,44 +264,44 @@ public class Missile extends GameSet {
 
         // 쫄 병 의 미 사 일
         // 맞 았 을 때
-        for (int i = 0; i < GameFrame.EMissile_List.size(); ++i) {
-            GameFrame.ems = (Missile) GameFrame.EMissile_List.get(i);// 발사체 추가
-            GameFrame.ems.move();// 발사체 이동
-            if (GameFrame.ems.x < -200) {
-                GameFrame.EMissile_List.remove(i);// 발사체 삭제
+        for (int i = 0; i < GameScreen.EMissile_List.size(); ++i) {
+            GameScreen.ems = (Missile) GameScreen.EMissile_List.get(i);// 발사체 추가
+            GameScreen.ems.move();// 발사체 이동
+            if (GameScreen.ems.x < -200) {
+                GameScreen.EMissile_List.remove(i);// 발사체 삭제
             }
-            if (GameFrame.Crash(GameFrame.x, GameFrame.y, GameFrame.ems.x, GameFrame.ems.y, GameFrame.Player_img[0],
-                    GameFrame.EMissile_img[0]) && GameFrame.ems.who == 1) {
+            if (GameScreen.Crash(GameScreen.x, GameScreen.y, GameScreen.ems.x, GameScreen.ems.y, GameScreen.Player_img[0],
+                    GameScreen.EMissile_img[0]) && GameScreen.ems.who == 1) {
                 // 적이발사한미사일이플레이어와충돌하는지여부를확인
-                GameFrame.player_Hp--;
+                GameScreen.player_Hp--;
                 // 플레이어체력포인트를1삭감
-                GameFrame.ex = new Explosion(GameFrame.x, GameFrame.y, 1);
+                GameScreen.ex = new Explosion(GameScreen.x, GameScreen.y, 1);
                 // 플레이어자리에충돌용폭발이펙트객체생성
-                GameFrame.Explosion_List.add(GameFrame.ex);
+                GameScreen.Explosion_List.add(GameScreen.ex);
                 // 생성한객체를배열로저장
-                GameFrame.EMissile_List.remove(i);
+                GameScreen.EMissile_List.remove(i);
                 // 해당되는적미사일삭제
             }
         }
 
         // 보 스 의 미 사 일
         // 맞 았 을 때
-        for (int i = 0; i < GameFrame.BMissile_List.size(); ++i) {
-            GameFrame.bms = (Missile) GameFrame.BMissile_List.get(i);// 발사체 추가
-            GameFrame.bms.move();// 발사체 이동
-            if (GameFrame.bms.x < -200) {
-                GameFrame.BMissile_List.remove(i);// 발사체 삭제
+        for (int i = 0; i < GameScreen.BMissile_List.size(); ++i) {
+            GameScreen.bms = (Missile) GameScreen.BMissile_List.get(i);// 발사체 추가
+            GameScreen.bms.move();// 발사체 이동
+            if (GameScreen.bms.x < -200) {
+                GameScreen.BMissile_List.remove(i);// 발사체 삭제
             }
-            if (GameFrame.Crash(GameFrame.x, GameFrame.y, GameFrame.bms.x, GameFrame.bms.y, GameFrame.Player_img[0],
-                    GameFrame.EMissile_img[0]) && GameFrame.bms.who == 2) {
+            if (GameScreen.Crash(GameScreen.x, GameScreen.y, GameScreen.bms.x, GameScreen.bms.y, GameScreen.Player_img[0],
+                    GameScreen.EMissile_img[0]) && GameScreen.bms.who == 2) {
                 // 적이발사한미사일이플레이어와충돌하는지여부를확인
-                GameFrame.player_Hp--;
+                GameScreen.player_Hp--;
                 // 플레이어체력포인트를1삭감
-                GameFrame.ex = new Explosion(GameFrame.x, GameFrame.y, 1);
+                GameScreen.ex = new Explosion(GameScreen.x, GameScreen.y, 1);
                 // 플레이어자리에충돌용폭발이펙트객체생성
-                GameFrame.Explosion_List.add(GameFrame.ex);
+                GameScreen.Explosion_List.add(GameScreen.ex);
                 // 생성한객체를배열로저장
-                GameFrame.BMissile_List.remove(i);
+                GameScreen.BMissile_List.remove(i);
                 // 해당되는적미사일삭제
             }
         }

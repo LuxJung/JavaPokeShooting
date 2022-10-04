@@ -17,7 +17,7 @@ public class GameIntro extends JFrame {
 
     private Image screenImage;
     private Graphics screenGraphic;
-    static GameFrame gf;
+    static GameScreen gf;
     // 메뉴바 종료버튼 이미지
     private ImageIcon menuExitOn = new ImageIcon(
             "src/images/resize피카츄/barExit.png");
@@ -51,7 +51,7 @@ public class GameIntro extends JFrame {
     public GameIntro() {
         setUndecorated(true);
         setTitle("슈우우우티이잉겜");// 프레임 이름
-        setSize(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);// 프레임 크기설정
+        setSize(GameScreen.SCREEN_WIDTH, GameScreen.SCREEN_HEIGHT);// 프레임 크기설정
         setResizable(false); // 프레임의 크기를 임의로 변경못하게 설정
         setLocationRelativeTo(null);// 프레임을 중앙에 위치
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// JFrame창 종료시 프로그램 종료
@@ -133,7 +133,7 @@ public class GameIntro extends JFrame {
             public void mousePressed(MouseEvent e) {
                 // 게임시작이벤트
                 // start();
-                gf = new GameFrame();
+                gf = new GameScreen();
 
             }
         });
@@ -178,7 +178,7 @@ public class GameIntro extends JFrame {
     }
 
     public void paint(Graphics g) {
-        screenImage = createImage(StartGame.SCREEN_WIDTH, StartGame.SCREEN_HEIGHT);
+        screenImage = createImage(GameScreen.SCREEN_WIDTH, GameScreen.SCREEN_HEIGHT);
         screenGraphic = screenImage.getGraphics();
         screenDraw(screenGraphic);
         g.drawImage(screenImage, 0, 0, null);
@@ -200,6 +200,6 @@ public class GameIntro extends JFrame {
     }
 
     public static void GameFrameOff() {
-        gf.setDefaultCloseOperation(GameFrame.DISPOSE_ON_CLOSE);
+        gf.setDefaultCloseOperation(GameScreen.DISPOSE_ON_CLOSE);
     }
 }

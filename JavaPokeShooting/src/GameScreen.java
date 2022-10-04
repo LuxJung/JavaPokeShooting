@@ -12,9 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 //프레임을 만들기 위한 클래스 입니다.
+//GameScreen 에서는 그리는 역할만 할수 있도록 변경해주기
 @SuppressWarnings("serial")
 // 						              프레임 생성                         키보드 이벤트 처리    스레드 위함
-public class GameFrame extends JFrame implements KeyListener, Runnable {
+public class GameScreen extends JFrame implements KeyListener, Runnable {
     public static final int SCREEN_WIDTH = 1280; // 프레임 넓이
     public static final int SCREEN_HEIGHT = 720; // 프레임 높이
     Image BackGround_img; // 스테이지 1 이미지
@@ -78,7 +79,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     static int player_Status = 0;// 유저 캐릭터 상태 체크 변수 0 : 평상시, 1: 미사일발사, 2: 충돌
 
     static int item_speed; // 아이템 속도 조절
-    static int enemy_speed; // 적 속도 조절
+
     static int enemy_kill;
     int enemy_Hp; // 유저의 움직이는 속도
 
@@ -106,10 +107,10 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
 
 
 
-    GameFrame() {// 프레임 생성
+    GameScreen() {// 프레임 생성
         init();
         start();
-        setDefaultCloseOperation(GameFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(GameScreen.EXIT_ON_CLOSE);
 
         setTitle("슈우잉겜");// 프레임 이름
         setSize(SCREEN_WIDTH, SCREEN_HEIGHT);// 프레임 크기설정
@@ -248,7 +249,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
         missile_Speed = 11; // 미사일 움직임 속도 설정
         Emissile_Speed = 11; // 미사일 움직임 속도 설정
         fire_Speed = 20; // 미사일 연사 속도 설정
-        enemy_speed = 7;// 적 속도 설정
+
         item_speed = 8;
         enemy_kill = 0;
 
@@ -921,7 +922,7 @@ public class GameFrame extends JFrame implements KeyListener, Runnable {
     /*------------------- K E Y E V E N T -------------------*/
 
     void dispose1() {
-        GameFrame gf = GameFrame.this;
+        GameScreen gf = GameScreen.this;
         gf.dispose();
     }
     /*********************************************************************/
