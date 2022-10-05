@@ -5,6 +5,9 @@ import game.GameScreen;
 import game.Missile;
 import game.set.GameSet;
 
+import javax.swing.*;
+import java.awt.*;
+
 import static game.GameScreen.SCREEN_WIDTH;
 
 public class Enemy extends GameSet implements Runnable {
@@ -16,6 +19,16 @@ public class Enemy extends GameSet implements Runnable {
     GameScreen gf;
     int enemy_Hp;
     Enemy en;
+
+    public Image getEnemy_img() {
+        Image enemy = null;
+        for (int i = 0; i < Enemy_img.length; ++i) {
+            enemy= Enemy_img[i] ;
+        }
+        return enemy;
+    }
+
+    public Image[] Enemy_img;
     // 다수의 적을 등장 시켜야 하므로 배열을 이용.
     // 에너미 클래스 접근
 
@@ -28,6 +41,12 @@ public class Enemy extends GameSet implements Runnable {
         this.enemy_Hp = enemy_Hp;
         if(GameScreen.enemy_kill>21) {
             this.enemy_Hp = 6;
+        }
+        Enemy_img = new Image[4];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
+        for (int i = 0; i < Enemy_img.length; ++i) {
+            Enemy_img[i] = new ImageIcon(
+                    "src/img/썬더_" + i + ".png")
+                    .getImage();
         }
     }
 
@@ -121,15 +140,15 @@ public class Enemy extends GameSet implements Runnable {
                 // 생성된미사일을객체로배열에추가
             }
             if (GameScreen.Crash(GameScreen.x, GameScreen.y, GameScreen.en.x, GameScreen.en.y, GameScreen.Player_img[0],
-                    GameScreen.Enemy_img[0])) {// 플레이어와 적의 충돌을 판정하여
+                    getEnemy_img())) {// 플레이어와 적의 충돌을 판정하여
                 // boolean값을 리턴 받아 true면 아래를 실행합니다.
                 GameScreen.player_Hp --;//플레이어 체력을 1깍습니다.
                 GameScreen.Enemy_List.remove(i); // 적을 제거합니다.
                 // game_Score += 10;
                 // 제거된 적으로 게임스코어를 10 증가시킵니다.
 
-                GameScreen.ex = new Explosion(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null) / 2,
-                        GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2, 0);
+                GameScreen.ex = new Explosion(GameScreen.en.x + getEnemy_img().getWidth(null) / 2,
+                        GameScreen.en.y + Enemy_img[i].getHeight(null) / 2, 0);
                 // 적이 위치해있는 곳의 중심 좌표 x,y 값과
                 // 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
                 // 폭발 설정 값 - 0 : 폭발 , 1 : 단순 피격
