@@ -1,5 +1,7 @@
 package game;
 
+import static game.GameScreen.SCREEN_WIDTH;
+
 public class Enemy extends GameSet implements Runnable {
     //int x;
     //int y;
@@ -12,7 +14,8 @@ public class Enemy extends GameSet implements Runnable {
     // 다수의 적을 등장 시켜야 하므로 배열을 이용.
     // 에너미 클래스 접근
 
-    Enemy(int x, int y, int speed,int enemy_Hp) { // 적좌표를 받아 객체화 시키기 위한 메소드
+    Enemy(int x, int y, int speed,int enemy_Hp) {
+        // 생성자
         super(x, y);
         this.x = x;
         this.y = y;
@@ -49,52 +52,46 @@ public class Enemy extends GameSet implements Runnable {
                     GameScreen.Enemy_List.clear();
                 } else {
                     int num = (int) (Math.random() * 3) + 1;
+                    int ran_x1 = SCREEN_WIDTH +(int) ((Math.random() * 400) + 50);
+                    int ran_x2 = SCREEN_WIDTH +(int) ((Math.random() * 400) + 50);
+                    int ran_x3 = SCREEN_WIDTH +(int) ((Math.random() * 400) + 50);
+                    int ran_x4 = SCREEN_WIDTH +(int) ((Math.random() * 400) + 50);
+                    int ran_x5 = SCREEN_WIDTH +(int) ((Math.random() * 400) + 50);
+                    int zen = (int) ((Math.random() * 140) + 80);
+                    int zen1 = (int) ((Math.random() * 60) + 260);
+                    int zen2 = (int) ((Math.random() * 60) + 380);
+
                     if (num == 1) {// 적 움직임 속도를 추가로 받아 적을 생성한다. 3, 4 ,5마리
-                        int zen = (int) ((Math.random() * 140) + 80);
-                        int zen1 = (int) ((Math.random() * 60) + 260);
-                        int zen2 = (int) ((Math.random() * 60) + 380);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), zen,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x1, zen, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), zen1,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x2, zen1, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), zen2,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x3, zen2, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
                     } else if (num == 2) {
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 140,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x1, 140, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 260,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x2, 260, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 380,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x3, 380, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 500,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x4, 500, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
                     } else {
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 80,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x1, 80, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 200,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x2, 200, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 320,
-                                enemy_speed,getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x3, 320, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 440,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x4, 440, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
-                        GameScreen.en = new Enemy(GameScreen.SCREEN_WIDTH + (int) ((Math.random() * 400) + 50), 560,
-                                enemy_speed, getEnemy_Hp());
+                        GameScreen.en = new Enemy(ran_x5, 560, enemy_speed, getEnemy_Hp());
                         GameScreen.Enemy_List.add(GameScreen.en);
                     }
                 }
             }
-            if (GameScreen.enemy_kill == 20 && GameScreen.enemy_kill == 40) {
+            if (GameScreen.enemy_kill == 20 || GameScreen.enemy_kill == 40) {
                 GameScreen.Enemy_List.clear();
             }
 
