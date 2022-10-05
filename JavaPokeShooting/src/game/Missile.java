@@ -1,5 +1,8 @@
 package game;
 
+import game.set.GameSet;
+import game.set.enemy.Boss;
+import game.set.enemy.Enemy;
 import key.event.KeyEvent;
 
 public class Missile extends GameSet {
@@ -10,7 +13,7 @@ public class Missile extends GameSet {
     int speed; // 미사일 스피드 변수를 추가.
     int who;// 미사일이발사한것이누군지구분하는변수추가
 
-    Missile(int x, int y, int angle, int speed, int who) {
+    public Missile(int x, int y, int angle, int speed, int who) {
         super(x, y);
         this.x = x;
         this.y = y;
@@ -83,8 +86,10 @@ public class Missile extends GameSet {
                         // 미사일의 좌표 및 이미지파일, 적의 좌표및 이미지 파일을 받아
                         // 충돌판정 메소드로 넘기고 true,false값을리턴 받아 true면 아래를 실행합니다.
                         GameScreen.Missile_List.remove(i);
-                        GameScreen.en.enemy_Hp--;
-                        if (GameScreen.en.enemy_Hp == 0) {
+                        int hp = GameScreen.en.getEnemy_Hp();
+                        hp--;
+                        GameScreen.en.setEnemy_Hp(hp);
+                        if (hp == 0) {
                             GameScreen.ex = new Explosion(GameScreen.en.x + GameScreen.Enemy_img[0].getWidth(null)-50 / 2,
                                     GameScreen.en.y + GameScreen.Enemy_img[0].getHeight(null) / 2, 0);
                             // 적이 위치해있는 곳의 중심 좌표 x,y 에 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
@@ -130,8 +135,10 @@ public class Missile extends GameSet {
                     if (GameScreen.Crash(GameScreen.ms.x, GameScreen.ms.y, GameScreen.bs.x, GameScreen.bs.y,
                             GameScreen.Missile_img[0], GameScreen.EnemyBoss_img[0]) && GameScreen.ms.who == 0) {
                         GameScreen.Missile_List.remove(i);
-                        GameScreen.bs.enemy_Hp--;
-                        if (GameScreen.bs.enemy_Hp == 0) {
+                        int hp = GameScreen.bs.getEnemy_Hp();
+                        hp--;
+                        GameScreen.bs.setEnemy_Hp(hp);
+                        if (hp == 0) {
                             GameScreen.Boss_List.remove(j);
                             GameScreen.ex = new Explosion(GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null)-450 / 2,
                                     GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2, 0);

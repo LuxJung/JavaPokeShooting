@@ -1,6 +1,8 @@
 package game;
 
-public class Item  extends GameSet{
+import game.set.GameSet;
+
+public class Item  extends GameSet {
     int item_speed; // 객체 생성시 속도 값을 받을 수 있다.
     int x;
     int y;

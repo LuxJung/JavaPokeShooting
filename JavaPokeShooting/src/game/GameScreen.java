@@ -1,5 +1,7 @@
 package game;
 
+import game.set.enemy.Boss;
+import game.set.enemy.Enemy;
 import key.event.KeyEvent;
 
 import java.awt.Dimension;
@@ -35,8 +37,8 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     Image[] iteminfo3_img; // 아이템 이미지를 받아들일 이미지 변수
     public static Image[] Player_img; // 플레이어 이미지 변수
     static Image[] Player_imgatk;
-    static Image[] Enemy_img; // 적 이미지를 받아들일 이미지 변수
-    static Image[] EnemyBoss_img;
+    public static Image[] Enemy_img; // 적 이미지를 받아들일 이미지 변수
+    public static Image[] EnemyBoss_img;
     static Image[] Logstone_img; // 적 이미지를 받아들일 이미지 변수
     static Image[] Lizamong_img; // 적 이미지를 받아들일 이미지 변수
     static Image[] Explo_img; // 폭발이펙트용 이미지배열
@@ -50,34 +52,34 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     // 키보드 입력
     KeyEvent key = new KeyEvent();
 
-    static int CNT; // 각종 타이밍 조절을 무한 루프를 카운터
+    public static int CNT; // 각종 타이밍 조절을 무한 루프를 카운터
 
 
     //int boss_Hp; // 유저의 움직이는 속도
 
     static Missile ms; // 미사일 클래스 접근 키
-    static Missile ems;
-    static Missile bms;
-    static Enemy en; // 적 접근 키
-    static Boss bs; // 보스 접근 키
-    static Explosion ex; // 폭발 이펙트용 클래스 접근 키
+    public static Missile ems;
+    public static Missile bms;
+    public static Enemy en; // 적 접근 키
+    public static Boss bs; // 보스 접근 키
+    public static Explosion ex; // 폭발 이펙트용 클래스 접근 키
     static Item itm;
     static Item itm2;
     static Item itm3;
 
     static int missile_status = 0;
     static int missile_Speed; // 미사일 속도
-    static int Emissile_Speed; // 적미사일 속
+    public static int Emissile_Speed; // 적미사일 속
 
     static int fire_Speed; // 미사일 연사 속도 조절
 
     static int player_Speed; // 유저의 움직이는 속도
-    static int player_Hp; // 유저의 움직이는 속도
+    public static int player_Hp; // 유저의 움직이는 속도
     public static int player_Status = 0;// 유저 캐릭터 상태 체크 변수 0 : 평상시, 1: 미사일발사, 2: 충돌
 
     static int item_speed; // 아이템 속도 조절
 
-    static int enemy_kill;
+    public static int enemy_kill;
     int enemy_Hp; // 유저의 움직이는 속도
 
     int[] cx = { 0, 0, 0 }; // 배경 스크롤 속도 제어용 변수
@@ -89,14 +91,14 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     static Thread trd2; // 스레드
 
 
-    static ArrayList<Missile> BMissile_List = new ArrayList<>();
-    static ArrayList<Missile> EMissile_List = new ArrayList<>();
+    public static ArrayList<Missile> BMissile_List = new ArrayList<>();
+    public static ArrayList<Missile> EMissile_List = new ArrayList<>();
     static ArrayList<Missile> Missile_List = new ArrayList<>();
 
-    static ArrayList<Explosion> Explosion_List = new ArrayList<>();
+    public static ArrayList<Explosion> Explosion_List = new ArrayList<>();
 
-    static ArrayList<Boss> Boss_List = new ArrayList<>();
-    static ArrayList<Enemy> Enemy_List = new ArrayList<>();
+    public static ArrayList<Boss> Boss_List = new ArrayList<>();
+    public static ArrayList<Enemy> Enemy_List = new ArrayList<>();
 
     static ArrayList<Item> Item_List = new ArrayList<>();
     static ArrayList<Item> Item2_List = new ArrayList<>();
@@ -271,6 +273,13 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
                 Enemy en = new Enemy(0,0,0,0);
                 Boss bs = new Boss(0,0,0,0);
+                en.setEnemy_Hp(3);
+                if (enemy_kill == 40) {
+                    bs.setEnemy_Hp(200);
+                }else{
+                    bs.setEnemy_Hp(100);
+                }
+
                 key.KeyProcess();// 키보드 입력처리를 하여 x,y 갱신
                 en.Process_Enemy(); // 적 행동 메소드 실행
                 //bs.process_Boss();
@@ -777,11 +786,11 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
         buffg.drawString("player_Hp : " + player_Hp, 1000, 170);
 
-        buffg.drawString("enemy_Hp : " + en.enemy_Hp, 1000, 190);
+        buffg.drawString("enemy_Hp : " + en.getEnemy_Hp(), 1000, 190);
         if(Boss_List.size()==0) {
             buffg.drawString("boss_Hp : " + 0, 1000, 210);
         }else {
-            buffg.drawString("boss_Hp : " + bs.enemy_Hp, 1000, 210);
+            buffg.drawString("boss_Hp : " + bs.getEnemy_Hp(), 1000, 210);
         }
 
     }
