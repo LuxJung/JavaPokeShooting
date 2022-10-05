@@ -1,3 +1,5 @@
+import game.GameIntro;
+
 public class StartGame {
     //과연 바꼈을까???
     public static final long start = System.currentTimeMillis();
