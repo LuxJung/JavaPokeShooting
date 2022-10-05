@@ -1,5 +1,6 @@
 package game;
 
+import game.background.BackGroundImg;
 import game.set.enemy.Boss;
 import game.set.enemy.Enemy;
 import key.event.KeyEvent;
@@ -22,12 +23,7 @@ import javax.swing.JFrame;
 // 						              프레임 생성                         키보드 이벤트 처리    스레드 위함
 public class GameScreen extends JFrame implements KeyListener, Runnable {
     public static final int SCREEN_WIDTH = 1280; // 프레임 넓이
-    public static final int SCREEN_HEIGHT = 720; // 프레임 높이
-    Image BackGround_img; // 스테이지 1 이미지
-    Image BackGround2_img; // 스테이지2 이미지
-    Image GameClear_img; // 게임클리어 이미지
-    Image GameOver_img; // 게임오버 이미지
-    Image Bosstext_img; // 보스등장 텍스트 이미지
+    public static final int SCREEN_HEIGHT = 720; // 프레임 높
     Image buffImage; // 더블 버퍼링용(화면이 반짝거리지 않도록)
     Graphics buffg; // 더블 버퍼링용(화면이 반짝거리지 않도록)
     Toolkit tk = Toolkit.getDefaultToolkit();
@@ -104,7 +100,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     static ArrayList<Item> Item2_List = new ArrayList<>();
     static ArrayList<Item> Item3_List = new ArrayList<>();
 
-
+    public BackGroundImg bg ;
 
     GameScreen() {// 프레임 생성
         init();
@@ -132,7 +128,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     }
 
     public void init() {
-
+        bg = new BackGroundImg(); //백그라운드 및 텍스트 이미지
         x = 100;// 캐릭터의 최초 좌표
         y = 400;// 캐릭터의 최초 좌표
 
@@ -160,16 +156,8 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     "src/img/Missl_" + i + ".png")
                     .getImage();
         }
-        BackGround_img = new ImageIcon(
-                "src/img/백그라운드.png").getImage();
-        BackGround2_img = new ImageIcon(
-                "src/img/백그라운드2.png").getImage();
-        Bosstext_img = new ImageIcon(
-                "src/img/bosstext.png").getImage();
-        GameClear_img = new ImageIcon(
-                "src/img/gameclear.png").getImage();
-        GameOver_img = new ImageIcon(
-                "src/img/gameover.png").getImage();
+
+
 
         Enemy_img = new Image[4];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Enemy_img.length; ++i) {
@@ -613,7 +601,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
         if (enemy_kill == 20 || enemy_kill == 40) {
             if(Boss_List.size()==0) {
-                buffg.drawImage(Bosstext_img, 50, 50, (ImageObserver) this);
+                buffg.drawImage(bg.bossText, 50, 50, (ImageObserver) this);
             }
         }
     }
@@ -623,9 +611,9 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     /*------------------- B A C K G R O U N D -------------------*/
     public void Draw_GamePlayState() {
         if(enemy_kill==41) {
-            buffg.drawImage(GameClear_img, 165, 210, (ImageObserver) this);
+            buffg.drawImage(bg.gameClear, 165, 210, (ImageObserver) this);
         }else if (player_Hp<1) {
-            buffg.drawImage(GameOver_img, 165, 210, (ImageObserver) this);
+            buffg.drawImage(bg.gameOver, 165, 210, (ImageObserver) this);
 
         }
     }
@@ -636,7 +624,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             // 화면 지우기 명령은 이제 여기서 실행합니다.
             if (bx > -4660) {
                 // 기본 값이 0인 bx가 -3500 보다 크면 실행
-                buffg.drawImage(BackGround_img, bx, 0, this);
+                buffg.drawImage(bg.backGround1, bx, 0, this);
                 bx -= 4;
                 // bx를 0에서 -1만큼 계속 줄이므로 배경이미지의 x좌표는
                 // 계속 좌측으로 이동한다. 그러므로 전체 배경은 천천히
@@ -649,7 +637,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             buffg.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             if (bx > -4660) {
                 // 기본 값이 0인 bx가 -3500 보다 크면 실행
-                buffg.drawImage(BackGround2_img, bx, 0, this);
+                buffg.drawImage(bg.backGround2, bx, 0, this);
                 bx -= 4;
                 // bx를 0에서 -1만큼 계속 줄이므로 배경이미지의 x좌표는
                 // 계속 좌측으로 이동한다. 그러므로 전체 배경은 천천히
