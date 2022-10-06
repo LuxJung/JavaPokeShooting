@@ -5,6 +5,7 @@ import game.GameScreen;
 import game.Missile;
 import game.set.GameSet;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,7 +42,12 @@ public class Boss extends GameSet implements Runnable {
         this.speed = GameSet.enemy_speed;
         this.enemy_Hp = enemy_Hp;
 
-
+        EnemyBoss_img = new Image[9];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
+        for (int i = 0; i < EnemyBoss_img.length; ++i) {
+            EnemyBoss_img[i] = new ImageIcon(
+                    "src/img/프리더_" + i + ".png")
+                    .getImage();
+        }
     }
 
     public void move() { // x좌표 -적의 속도 만큼 이동 시키는 명령 메소드
