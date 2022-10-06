@@ -156,18 +156,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     "src/img/Missl_" + i + ".png")
                     .getImage();
         }
-        EnemyBoss_img = new Image[9];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < EnemyBoss_img.length; ++i) {
-            EnemyBoss_img[i] = new ImageIcon(
-                    "src/img/프리더_" + i + ".png")
-                    .getImage();
-        }
-        Lizamong_img = new Image[5];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Lizamong_img.length; ++i) {
-            Lizamong_img[i] = new ImageIcon(
-                    "src/img/리자몽_" + i + ".png")
-                    .getImage();
-        }
 
         Explo_img = new Image[4];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Explo_img.length; ++i) {
@@ -398,20 +386,20 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     /*------------------- E N E M Y  -------------------*/
     public void Draw_Enemy() {
         //if(System.currentTimeMillis() == StartGame.end) {
-        if (enemy_kill == 20) {
+        if (enemy_kill == 20 || enemy_kill == 40 ) {
             for (int i = 0; i < Boss_List.size(); ++i) {
                 bs = (Boss) (Boss_List.get(i));
                 if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(EnemyBoss_img[0], bs.x, bs.y, this);
+                    buffg.drawImage(bs.Boss_img[0], bs.x, bs.y, this);
                 } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(EnemyBoss_img[1], bs.x, bs.y, this);
+                    buffg.drawImage(bs.Boss_img[1], bs.x, bs.y, this);
                 } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(EnemyBoss_img[2], bs.x, bs.y, this);
+                    buffg.drawImage(bs.Boss_img[2], bs.x, bs.y, this);
                 } else {
-                    buffg.drawImage(EnemyBoss_img[3], bs.x, bs.y, this);
+                    buffg.drawImage(bs.Boss_img[3], bs.x, bs.y, this);
                 }
             }
-        } else if (enemy_kill < 20) {// 적 이미지를 그리는 부분Logstone_img
+        }  else {// 적 이미지를 그리는 부분Logstone_img
 
             for (int i = 0; i < Enemy_List.size(); ++i) {
                 en = (Enemy) (Enemy_List.get(i));
@@ -425,35 +413,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 } else {
                     buffg.drawImage(en.Enemy_img[3], en.x, en.y, this);
                 } // 배열에 생성된 각 적을 판별하여 이미지 그리기
-            }
-        } else if (enemy_kill > 20 && enemy_kill < 40) {// 적 이미지를 그리는 부분Logstone_img
-            for (int i = 0; i < Enemy_List.size(); ++i) {
-                en = (Enemy) (Enemy_List.get(i));
-                // buffg.drawImage(Enemy_img, en.x, en.y, this);
-                if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(en.Enemy_img[0], en.x, en.y, this);
-                } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(en.Enemy_img[1], en.x, en.y, this);
-                } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(en.Enemy_img[2], en.x, en.y, this);
-                } else {
-                    buffg.drawImage(en.Enemy_img[3], en.x, en.y, this);
-                } // 배열에 생성된 각 적을 판별하여 이미지 그리기
-            }
-        } else if (enemy_kill == 40) {
-            for (int i = 0; i < Boss_List.size(); ++i) {
-                bs = (Boss) (Boss_List.get(i));
-                if ((CNT / 5 % 5) == 1) {
-                    buffg.drawImage(Lizamong_img[0], bs.x, bs.y, this);
-                } else if ((CNT / 5 % 5) == 2) {
-                    buffg.drawImage(Lizamong_img[1], bs.x, bs.y, this);
-                } else if ((CNT / 5 % 5) == 3) {
-                    buffg.drawImage(Lizamong_img[2], bs.x, bs.y, this);
-                } else if ((CNT / 5 % 5) == 4) {
-                    buffg.drawImage(Lizamong_img[3], bs.x, bs.y, this);
-                } else {
-                    buffg.drawImage(Lizamong_img[4], bs.x, bs.y, this);
-                }
             }
         }
 

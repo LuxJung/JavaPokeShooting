@@ -21,7 +21,7 @@ public class Boss extends GameSet implements Runnable {
     Boss bs;
     Enemy en;
     GameScreen gf;
-    public Image[] EnemyBoss_img;
+    public Image[] Boss_img;
     public int getEnemy_Hp() {
         return enemy_Hp;
     }
@@ -41,12 +41,20 @@ public class Boss extends GameSet implements Runnable {
         this.y = y;
         this.speed = GameSet.enemy_speed;
         this.enemy_Hp = enemy_Hp;
-
-        EnemyBoss_img = new Image[9];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < EnemyBoss_img.length; ++i) {
-            EnemyBoss_img[i] = new ImageIcon(
-                    "src/img/프리더_" + i + ".png")
-                    .getImage();
+        if(GameScreen.enemy_kill==20){
+        Boss_img = new Image[4];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
+            for (int i = 0; i < Boss_img.length; ++i) {
+                Boss_img[i] = new ImageIcon(
+                        "src/img/프리더_" + i + ".png")
+                        .getImage();
+            }
+        }else if(GameScreen.enemy_kill==40){
+            Boss_img = new Image[4];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
+            for (int i = 0; i < Boss_img.length; ++i) {
+                Boss_img[i] = new ImageIcon(
+                        "src/img/리자몽_" + i + ".png")
+                        .getImage();
+            }
         }
     }
 
@@ -112,14 +120,14 @@ public class Boss extends GameSet implements Runnable {
                     // 생성된미사일을객체로배열에추가
                 }
                 if (GameScreen.Crash(GameScreen.x, GameScreen.y, GameScreen.bs.x, GameScreen.bs.y, GameScreen.Player_img[0],
-                        GameScreen.EnemyBoss_img[0])) {// 플레이어와 적의 충돌을 판정하여
+                        Boss_img[0])) {// 플레이어와 적의 충돌을 판정하여
                     // boolean값을 리턴 받아 true면 아래를 실행합니다.
                     GameScreen.player_Hp--; // 플레이어 체력을 1깍습니다.
                     // game_Score += 10;
                     // 제거된 적으로 게임스코어를 10 증가시킵니다.
 
-                    GameScreen.ex = new Explosion(GameScreen.bs.x + GameScreen.EnemyBoss_img[0].getWidth(null) / 2,
-                            GameScreen.bs.y + GameScreen.EnemyBoss_img[0].getHeight(null) / 2, 0);
+                    GameScreen.ex = new Explosion(GameScreen.bs.x + GameScreen.bs.Boss_img[0].getWidth(null) / 2,
+                            GameScreen.bs.y + Boss_img[0].getHeight(null) / 2, 0);
                     // 적이 위치해있는 곳의 중심 좌표 x,y 값과
                     // 폭발 설정을 받은 값 ( 0 또는 1 )을 받습니다.
                     // 폭발 설정 값 - 0 : 폭발 , 1 : 단순 피격
