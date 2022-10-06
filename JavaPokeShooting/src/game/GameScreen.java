@@ -2,6 +2,8 @@ package game;
 
 import game.background.BackGroundImg;
 import game.set.effect.Explosion;
+import game.set.element.Item;
+import game.set.element.Missile;
 import game.set.enemy.Boss;
 import game.set.enemy.Enemy;
 import key.event.KeyEvent;
@@ -35,12 +37,9 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     public static Image[] Player_img; // 플레이어 이미지 변수
     static Image[] Player_imgatk;
 
-    public static Image[] EnemyBoss_img;
-
-    static Image[] Lizamong_img; // 적 이미지를 받아들일 이미지 변수
     static Image[] Explo_img; // 폭발이펙트용 이미지배열
-    static Image[] Missile_img; // 미사일 이미지 변수
-    static Image[] EMissile_img; // 적 미사일 이미지 변수
+    public static Image[] Missile_img; // 미사일 이미지 변수
+    public static Image[] EMissile_img; // 적 미사일 이미지 변수
     static Image[] item_img; // 아이템 이미지를 받아들일 이미지 변수
     static Image[] item2_img; // 아이템 이미지를 받아들일 이미지 변수
     static Image[] item3_img; // 아이템 이미지를 받아들일 이미지 변수
@@ -54,27 +53,27 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
     //int boss_Hp; // 유저의 움직이는 속도
 
-    static Missile ms; // 미사일 클래스 접근 키
+    public static Missile ms; // 미사일 클래스 접근 키
     public static Missile ems;
     public static Missile bms;
     public static Enemy en; // 적 접근 키
     public static Boss bs; // 보스 접근 키
     public static Explosion ex; // 폭발 이펙트용 클래스 접근 키
-    static Item itm;
-    static Item itm2;
-    static Item itm3;
+    public static Item itm;
+    public static Item itm2;
+    public static Item itm3;
 
-    static int missile_status = 0;
-    static int missile_Speed; // 미사일 속도
+    public static int missile_status = 0;
+    public static int missile_Speed; // 미사일 속도
     public static int Emissile_Speed; // 적미사일 속
 
-    static int fire_Speed; // 미사일 연사 속도 조절
+    public static int fire_Speed; // 미사일 연사 속도 조절
 
     static int player_Speed; // 유저의 움직이는 속도
     public static int player_Hp; // 유저의 움직이는 속도
     public static int player_Status = 0;// 유저 캐릭터 상태 체크 변수 0 : 평상시, 1: 미사일발사, 2: 충돌
 
-    static int item_speed; // 아이템 속도 조절
+    public static int item_speed; // 아이템 속도 조절
 
     public static int enemy_kill;
     int enemy_Hp; // 유저의 움직이는 속도
@@ -90,16 +89,16 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
     public static ArrayList<Missile> BMissile_List = new ArrayList<>();
     public static ArrayList<Missile> EMissile_List = new ArrayList<>();
-    static ArrayList<Missile> Missile_List = new ArrayList<>();
+    public static ArrayList<Missile> Missile_List = new ArrayList<>();
 
     public static ArrayList<Explosion> Explosion_List = new ArrayList<>();
 
     public static ArrayList<Boss> Boss_List = new ArrayList<>();
     public static ArrayList<Enemy> Enemy_List = new ArrayList<>();
 
-    static ArrayList<Item> Item_List = new ArrayList<>();
-    static ArrayList<Item> Item2_List = new ArrayList<>();
-    static ArrayList<Item> Item3_List = new ArrayList<>();
+    public static ArrayList<Item> Item_List = new ArrayList<>();
+    public static ArrayList<Item> Item2_List = new ArrayList<>();
+    public static ArrayList<Item> Item3_List = new ArrayList<>();
 
     public BackGroundImg bg ;
 
@@ -164,26 +163,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     "src/img/explo_" + i + ".png")
                     .getImage();
         }
-
-        item_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < item_img.length; ++i) {
-            item_img[i] = new ImageIcon(
-                    "src/img/item_" + i + ".png")
-                    .getImage();
-        }
-        item2_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < item2_img.length; ++i) {
-            item2_img[i] = new ImageIcon(
-                    "src/img/item_" + i + ".png")
-                    .getImage();
-        }
-        item3_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < item3_img.length; ++i) {
-            item3_img[i] = new ImageIcon(
-                    "src/img/3item_" + i + ".png")
-                    .getImage();
-        }
-
 
         iteminfo_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < iteminfo_img.length; ++i) {
@@ -427,17 +406,17 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         for (int i = 0; i < Item_List.size(); ++i) {
             itm = (Item) Item_List.get(i);
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(item_img[0], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[0], itm.x, itm.y, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(item_img[1], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[1], itm.x, itm.y, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(item_img[2], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[2], itm.x, itm.y, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(item_img[3], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[3], itm.x, itm.y, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(item_img[4], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[4], itm.x, itm.y, this);
             } else {
-                buffg.drawImage(item_img[5], itm.x, itm.y, this);
+                buffg.drawImage(itm.item_img[5], itm.x, itm.y, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
@@ -445,17 +424,17 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         for (int i = 0; i < Item2_List.size(); ++i) {
             itm2 = (Item) Item2_List.get(i);
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(item2_img[0], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[0], itm2.x, itm2.y, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(item2_img[1], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[1], itm2.x, itm2.y, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(item2_img[2], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[2], itm2.x, itm2.y, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(item2_img[3], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[3], itm2.x, itm2.y, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(item2_img[4], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[4], itm2.x, itm2.y, this);
             } else {
-                buffg.drawImage(item2_img[5], itm2.x, itm2.y, this);
+                buffg.drawImage(itm2.item2_img[5], itm2.x, itm2.y, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
@@ -463,17 +442,17 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         for (int i = 0; i < Item3_List.size(); ++i) {
             itm3 = (Item) Item3_List.get(i);
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(item3_img[0], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[0], itm3.x, itm3.y, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(item3_img[1], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[1], itm3.x, itm3.y, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(item3_img[2], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[2], itm3.x, itm3.y, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(item3_img[3], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[3], itm3.x, itm3.y, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(item3_img[4], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[4], itm3.x, itm3.y, this);
             } else {
-                buffg.drawImage(item3_img[5], itm3.x, itm3.y, this);
+                buffg.drawImage(itm3.item3_img[5], itm3.x, itm3.y, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
@@ -487,7 +466,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 Item_List.remove(i); // 해당 아이템을 배열에서 삭제
             }
 
-            if (Crash(x, y, itm.x, itm.y, Player_img[0], item_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
+            if (Crash(x, y, itm.x, itm.y, Player_img[0], itm.item_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
                 // boolean값을 리턴 받아 true면 아래를 실행합니다.
                 // player_Hitpoint --; //플레이어 체력을 1깍습니다.
                 Item_List.remove(i); // 아이템을 제거합니다.
@@ -504,7 +483,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             if (x < -200) { // 적의 좌표가 화면 밖으로 넘어가면
                 Item2_List.remove(i); // 해당 아이템을 배열에서 삭제
             }
-            if (Crash(x, y, itm2.x, itm2.y, Player_img[0], item2_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
+            if (Crash(x, y, itm2.x, itm2.y, Player_img[0], itm2.item2_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
                 // boolean값을 리턴 받아 true면 아래를 실행합니다.
                 // player_Hitpoint --; //플레이어 체력을 1깍습니다.
                 Item2_List.remove(i); // 아이템을 제거합니다.
@@ -521,7 +500,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             if (x < -200) { // 적의 좌표가 화면 밖으로 넘어가면
                 Item3_List.remove(i); // 해당 아이템을 배열에서 삭제
             }
-            if (Crash(x, y, itm3.x, itm3.y, Player_img[0], item3_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
+            if (Crash(x, y, itm3.x, itm3.y, Player_img[0], itm3.item3_img[0])) {// 플레이어와 아이템의 충돌을 판정하여
                 // boolean값을 리턴 받아 true면 아래를 실행합니다.
                 // player_Hitpoint --; //플레이어 체력을 1깍습니다.
                 Item3_List.remove(i); // 아이템을 제거합니다.
@@ -684,7 +663,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
         boolean check = false;
 
-        if (Crash(x, y, itm2.x, itm2.y, Player_img[0], item2_img[0])) {
+        if (Crash(x, y, itm2.x, itm2.y, Player_img[0], itm2.item2_img[0])) {
             // 이미지 넓이, 높이값을 바로 받아 계산합니다.
             check = true;// 위 값이 true면 check에 true를 전달합니다.
         } else {

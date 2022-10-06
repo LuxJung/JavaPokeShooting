@@ -1,5 +1,6 @@
-package game;
+package game.set.element;
 
+import game.GameScreen;
 import game.set.GameSet;
 import game.set.effect.Explosion;
 import game.set.enemy.Boss;
@@ -8,11 +9,11 @@ import key.event.KeyEvent;
 
 public class Missile extends GameSet {
 
-    int x;
-    int y;
+    public int x;
+    public int y;
     int angle;
     int speed; // 미사일 스피드 변수를 추가.
-    int who;// 미사일이발사한것이누군지구분하는변수추가
+    public int who;// 미사일이발사한것이누군지구분하는변수추가
 
     public Missile(int x, int y, int angle, int speed, int who) {
         super(x, y);

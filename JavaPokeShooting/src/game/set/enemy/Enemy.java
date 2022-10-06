@@ -2,7 +2,7 @@ package game.set.enemy;
 
 import game.set.effect.Explosion;
 import game.GameScreen;
-import game.Missile;
+import game.set.element.Missile;
 import game.set.GameSet;
 
 import javax.swing.*;
