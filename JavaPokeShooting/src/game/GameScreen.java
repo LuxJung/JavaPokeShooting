@@ -33,9 +33,9 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     Image[] iteminfo3_img; // 아이템 이미지를 받아들일 이미지 변수
     public static Image[] Player_img; // 플레이어 이미지 변수
     static Image[] Player_imgatk;
-    public static Image[] Enemy_img; // 적 이미지를 받아들일 이미지 변수
+
     public static Image[] EnemyBoss_img;
-    static Image[] Logstone_img; // 적 이미지를 받아들일 이미지 변수
+
     static Image[] Lizamong_img; // 적 이미지를 받아들일 이미지 변수
     static Image[] Explo_img; // 폭발이펙트용 이미지배열
     static Image[] Missile_img; // 미사일 이미지 변수
@@ -154,21 +154,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         for (int i = 0; i < EMissile_img.length; ++i) {
             EMissile_img[i] = new ImageIcon(
                     "src/img/Missl_" + i + ".png")
-                    .getImage();
-        }
-
-
-/*
-        Enemy_img = new Image[4];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Enemy_img.length; ++i) {
-            Enemy_img[i] = new ImageIcon(
-                    "src/img/썬더_" + i + ".png")
-                    .getImage();
-        }*/
-        Logstone_img = new Image[4];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Logstone_img.length; ++i) {
-            Logstone_img[i] = new ImageIcon(
-                    "src/img/롱스톤_" + i + ".png")
                     .getImage();
         }
         EnemyBoss_img = new Image[9];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
@@ -446,13 +431,13 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 en = (Enemy) (Enemy_List.get(i));
                 // buffg.drawImage(Enemy_img, en.x, en.y, this);
                 if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(Logstone_img[0], en.x, en.y, this);
+                    buffg.drawImage(en.Enemy_img[0], en.x, en.y, this);
                 } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(Logstone_img[1], en.x, en.y, this);
+                    buffg.drawImage(en.Enemy_img[1], en.x, en.y, this);
                 } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(Logstone_img[2], en.x, en.y, this);
+                    buffg.drawImage(en.Enemy_img[2], en.x, en.y, this);
                 } else {
-                    buffg.drawImage(Logstone_img[3], en.x, en.y, this);
+                    buffg.drawImage(en.Enemy_img[3], en.x, en.y, this);
                 } // 배열에 생성된 각 적을 판별하여 이미지 그리기
             }
         } else if (enemy_kill == 40) {

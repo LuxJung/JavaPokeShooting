@@ -43,10 +43,22 @@ public class Enemy extends GameSet implements Runnable {
             this.enemy_Hp = 6;
         }
         Enemy_img = new Image[4];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Enemy_img.length; ++i) {
-            Enemy_img[i] = new ImageIcon(
-                    "src/img/썬더_" + i + ".png")
-                    .getImage();
+        setImgEnemy();
+
+    }
+    public void setImgEnemy(){
+        if(GameScreen.enemy_kill<20){
+            for (int i = 0; i < Enemy_img.length; ++i) {
+                Enemy_img[i] = new ImageIcon(
+                        "src/img/썬더_" + i + ".png")
+                        .getImage();
+            }
+        }else{
+            for (int i = 0; i < Enemy_img.length; ++i) {
+                Enemy_img[i] = new ImageIcon(
+                        "src/img/롱스톤_" + i + ".png")
+                        .getImage();
+            }
         }
     }
 
