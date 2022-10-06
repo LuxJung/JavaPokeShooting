@@ -5,6 +5,7 @@ import game.GameScreen;
 import game.Missile;
 import game.set.GameSet;
 
+import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +20,7 @@ public class Boss extends GameSet implements Runnable {
     Boss bs;
     Enemy en;
     GameScreen gf;
-
+    public Image[] EnemyBoss_img;
     public int getEnemy_Hp() {
         return enemy_Hp;
     }

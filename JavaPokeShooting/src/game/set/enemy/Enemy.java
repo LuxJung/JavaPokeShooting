@@ -19,15 +19,6 @@ public class Enemy extends GameSet implements Runnable {
     GameScreen gf;
     int enemy_Hp;
     Enemy en;
-
-    public Image getEnemy_img() {
-        Image enemy = null;
-        for (int i = 0; i < Enemy_img.length; ++i) {
-            enemy= Enemy_img[i] ;
-        }
-        return enemy;
-    }
-
     public Image[] Enemy_img;
     // 다수의 적을 등장 시켜야 하므로 배열을 이용.
     // 에너미 클래스 접근
@@ -50,22 +41,24 @@ public class Enemy extends GameSet implements Runnable {
         if(GameScreen.enemy_kill<20){
             for (int i = 0; i < Enemy_img.length; ++i) {
                 Enemy_img[i] = new ImageIcon(
-                        "src/img/썬더_" + i + ".png")
-                        .getImage();
+                        "src/img/썬더_" + i + ".png").getImage();
             }
         }else{
             for (int i = 0; i < Enemy_img.length; ++i) {
                 Enemy_img[i] = new ImageIcon(
-                        "src/img/롱스톤_" + i + ".png")
-                        .getImage();
+                        "src/img/롱스톤_" + i + ".png").getImage();
             }
         }
     }
-
+    public Image getEnemy_img() {
+        Image enemy = null;
+        for (int i = 0; i < Enemy_img.length; ++i) {
+            enemy= Enemy_img[i] ;
+        }return enemy;
+    }
     public void move() { // x좌표 -적의 속도 만큼 이동 시키는 명령 메소드
         x -= speed;
     }
-
     @Override
     public void run() {
         try {
@@ -77,7 +70,6 @@ public class Enemy extends GameSet implements Runnable {
         } catch (InterruptedException e) {
             // e.printStackTrace();
         }
-
     }
 
     public void Process_Enemy() {
