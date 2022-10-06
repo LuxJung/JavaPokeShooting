@@ -1,4 +1,4 @@
-package game;
+package game.set.effect;
 
 import game.set.GameSet;
 
@@ -6,10 +6,10 @@ import game.set.GameSet;
 public class Explosion extends GameSet {
     // 여러개의 폭발 이미지를 그리기위해 클래스를 추가하여 객체관리
 
-    int x; // 이미지를 그릴 x 좌표
-    int y; // 이미지를 그릴 y 좌표
-    int ex_cnt; // 이미지를 순차적으로 그리기 위한 카운터
-    int damage; // 이미지 종류를 구분하기 위한 변수값
+    public int x; // 이미지를 그릴 x 좌표
+    public int y; // 이미지를 그릴 y 좌표
+    public int ex_cnt; // 이미지를 순차적으로 그리기 위한 카운터
+    public int damage; // 이미지 종류를 구분하기 위한 변수값
 
     public Explosion(int x, int y, int damage) {
         super(x, y);

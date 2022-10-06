@@ -1,6 +1,7 @@
 package game;
 
 import game.set.GameSet;
+import game.set.effect.Explosion;
 import game.set.enemy.Boss;
 import game.set.enemy.Enemy;
 import key.event.KeyEvent;
@@ -34,9 +35,7 @@ public class Missile extends GameSet {
         // 해당방향으로미사일발사.
     }
     public static boolean fire(){
-        boolean res=false;
-        if((GameScreen.CNT % 20) == 0) res=true;
-        return res;
+        return (GameScreen.CNT % 20) == 0;
     }
 
     public static void Process_Missile(KeyEvent key) {
@@ -59,7 +58,7 @@ public class Missile extends GameSet {
                         break;
 
                     case 2: // 아이템 획득 후
-                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 0, 15, GameScreen.missile_Speed, 0);
+                        GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y, 15, GameScreen.missile_Speed, 0);
                         GameScreen.Missile_List.add(GameScreen.ms);
                         GameScreen.ms = new Missile(GameScreen.x + 120, GameScreen.y + 50, 0, GameScreen.missile_Speed, 0);
                         GameScreen.Missile_List.add(GameScreen.ms);

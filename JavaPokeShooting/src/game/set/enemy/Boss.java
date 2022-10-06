@@ -1,6 +1,6 @@
 package game.set.enemy;
 
-import game.Explosion;
+import game.set.effect.Explosion;
 import game.GameScreen;
 import game.Missile;
 import game.set.GameSet;

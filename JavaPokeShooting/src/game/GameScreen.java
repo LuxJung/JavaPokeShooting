@@ -1,6 +1,7 @@
 package game;
 
 import game.background.BackGroundImg;
+import game.set.effect.Explosion;
 import game.set.enemy.Boss;
 import game.set.enemy.Enemy;
 import key.event.KeyEvent;
