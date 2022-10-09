@@ -1,3 +1,3 @@
 # JavaPokeShooting
-This is an H1
+피카츄 슈팅 게임
 =============
