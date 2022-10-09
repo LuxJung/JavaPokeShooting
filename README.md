@@ -1,5 +1,9 @@
 # JavaPokeShooting
 피카츄 슈팅 게임
 =============
-조작방법은 메인에 설명 되어 있습니다!
-<img crc="D:\JAVA_IntelliJ_Project\JavaPokeShooting\src\img\sampleImg.png" width="50%" height="50%" title="조작방법 및 메인" alt="조작방법 및 메인"></img>
+조작방법은 아래 이미지와 같이 메인에 설명 되어 있습니다!    
+<img src=".\mdImg\sampleImg.png" width="80%" height="80%" title="조작방법 및 메인" alt="조작방법 및 메인"></img>
+
+#### 스테이지는 총 2개로 구성되어 있고,
+#### 일정 수의 적을 물리치면, 보스가 등장합니다.
+#### 2번의 보스를 잡아 게임을 클리어하세요~
