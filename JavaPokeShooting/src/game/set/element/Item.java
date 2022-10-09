@@ -28,38 +28,32 @@ public class Item  extends GameSet {
         item_img = new Image[6];// 아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < item_img.length; ++i) {
             item_img[i] = new ImageIcon(
-                    "src/img/item_" + i + ".png")
-                    .getImage();
+                    "src/img/item_" + i + ".png").getImage();
         }
         item2_img = new Image[6];//아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < item2_img.length; ++i) {
             item2_img[i] = new ImageIcon(
-                    "src/img/item_" + i + ".png")
-                    .getImage();
+                    "src/img/item_" + i + ".png").getImage();
         }
         item3_img = new Image[6];//아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < item3_img.length; ++i) {
             item3_img[i] = new ImageIcon(
-                    "src/img/3item_" + i + ".png")
-                    .getImage();
+                    "src/img/3item_" + i + ".png").getImage();
         }
         iteminfo_img = new Image[6];// 아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < iteminfo_img.length; ++i) {
             iteminfo_img[i] = new ImageIcon(
-                    "src/img/iteminfo_" + i + ".png")
-                    .getImage();
+                    "src/img/iteminfo_" + i + ".png").getImage();
         }
         iteminfo2_img = new Image[6];// 아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < iteminfo2_img.length; ++i) {
             iteminfo2_img[i] = new ImageIcon(
-                    "src/img/2iteminfo_" + i + ".png")
-                    .getImage();
+                    "src/img/2iteminfo_" + i + ".png").getImage();
         }
         iteminfo3_img = new Image[6];// 아이템 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < iteminfo3_img.length; ++i) {
             iteminfo3_img[i] = new ImageIcon(
-                    "src/img/3iteminfo_" + i + ".png")
-                    .getImage();
+                    "src/img/3iteminfo_" + i + ".png").getImage();
         }
     }
 

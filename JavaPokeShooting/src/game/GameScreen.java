@@ -128,33 +128,27 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         Player_img = new Image[4];// 플레이어 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Player_img.length; ++i) {
             Player_img[i] = new ImageIcon(
-                    "src/img/피카츄resize_" + i + ".png")
-                    .getImage();
+                    "src/img/피카츄resize_" + i + ".png").getImage();
         }
         Player_imgatk = new Image[4];// 플레이어 공격 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Player_imgatk.length; ++i) {
             Player_imgatk[i] = new ImageIcon(
-                    "src/img/new피카츄atk_" + i + ".png")
-                    .getImage();
+                    "src/img/new피카츄atk_" + i + ".png").getImage();
         }
         Missile_img = new Image[4];// 전기구체 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Missile_img.length; ++i) {
             Missile_img[i] = new ImageIcon(
-                    "src/img/Missile_" + i + ".png")
-                    .getImage();
+                    "src/img/Missile_" + i + ".png").getImage();
         }
         EMissile_img = new Image[4];// 적 미사일 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < EMissile_img.length; ++i) {
             EMissile_img[i] = new ImageIcon(
-                    "src/img/Missl_" + i + ".png")
-                    .getImage();
+                    "src/img/Missl_" + i + ".png").getImage();
         }
-
         Explo_img = new Image[4];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
         for (int i = 0; i < Explo_img.length; ++i) {
             Explo_img[i] = new ImageIcon(
-                    "src/img/explo_" + i + ".png")
-                    .getImage();
+                    "src/img/explo_" + i + ".png").getImage();
         }
 
         player_Hp = 10;
@@ -174,10 +168,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
         trd = new Thread(this);
         trd.start();
-
-        // Runnable EnemyEtrd = new Game.Enemy(x,y,enemy_speed);
-        // Thread thread3 = new Thread(EnemyEtrd);
-        // thread3.start();
     }
 
     @Override
