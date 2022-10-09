@@ -1,9 +1,6 @@
 package game;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -188,6 +185,11 @@ public class GameIntro extends JFrame {
 
     public void screenDraw(Graphics g) {
         g.drawImage(introBackground, 0, 0, null);
+        g.setFont(new Font("Defualt", Font.BOLD, 20));
+        g.drawString("---조작방법---" , 70, 70);
+        g.drawString("이동: ← → ↑ ↓" , 70, 100);
+        g.drawString("공격: spacebar" , 70, 130);
+        g.drawString("연속공격: spacebar 꾹!" , 70, 160);
         paintComponents(g);// 메뉴버튼
         this.repaint();
 

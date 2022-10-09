@@ -183,8 +183,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     @Override
     public void run() {// 스레드 무한루프
         try {
-            while (true) {
-
+            while (!Thread.currentThread().isInterrupted()) {
                 Enemy en = new Enemy(0,0,0,0);
                 Boss bs = new Boss(0,0,0,0);
                 en.setEnemy_Hp(3);
@@ -193,7 +192,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 }else{
                     bs.setEnemy_Hp(100);
                 }
-
                 key.KeyProcess();// 키보드 입력처리를 하여 x,y 갱신
                 en.Process_Enemy(); // 적 행동 메소드 실행
                 //bs.process_Boss();
@@ -211,22 +209,29 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     gs.option();
                     trd.suspend();
                 }
-
+                if(player_Hp ==0){
+                    Thread.sleep(2000);
+                    trd.interrupt();//스레드 종료
+                }
             }
+            dispose();//스레드 종료후 화면 닫고
+            new GameIntro();//새 화면을 띄운다
         } catch (InterruptedException e) {
             // e.printStackTrace();
         }
     }
 
     public void paint(Graphics g) {
-        buffImage = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);// 더블버퍼링 버퍼 크기를 화면 크기와 같게 설정
-        buffg = buffImage.getGraphics(); // 버퍼의 그래픽 객체를 얻기
-
-        screenDraw(g);
+        try {
+            buffImage = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);// 더블버퍼링 버퍼 크기를 화면 크기와 같게 설정
+            buffg = buffImage.getGraphics(); // 버퍼의 그래픽 객체를 얻기
+            screenDraw(g);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void screenDraw(Graphics g) {
-
+    public void screenDraw(Graphics g) throws InterruptedException {
         Draw_Background();
         Draw_Bosstext();
         Draw_ItemInfo();
@@ -237,9 +242,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         Draw_Item();
         Draw_Explosion(); // 폭발이펙트그리기 메소드 실행
         Draw_GamePlayState();
-        g.drawImage(buffImage, 0, 0, this);
-        // 화면에 버퍼에 그린 그림을 가져와 그리기
-
+        g.drawImage(buffImage, 0, 0, this);// 화면에 버퍼에 그린 그림을 가져와 그리기
     }
 
     public void Draw_Player() { // 실제로 그림들을 그릴 부분
@@ -268,7 +271,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 } // 미사일을 쏘는듯한 이미지를 번갈아 그려준다.
                 player_Status = 0;// 미사일 쏘기가 끝나면 플레이어 상태를 0으로 돌린다.
                 break;
-
             case 2: // 충돌
                 break;
         }
@@ -506,7 +508,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
 
     /*------------------- B A C K G R O U N D -------------------*/
-    public void Draw_GamePlayState() {
+    public void Draw_GamePlayState() throws InterruptedException {
         if(enemy_kill==41) {
             buffg.drawImage(bg.gameClear, 165, 210, (ImageObserver) this);
         }else if (player_Hp<1) {
@@ -629,23 +631,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         return check; // check의 값을 메소드에 리턴 시킵니다.
     }
 
-    public boolean Msupgrade() {
-        // 기존 충돌 판정 소스를 변경합니다.
-        // 이제 이미지 변수를 바로 받아 해당 이미지의 넓이, 높이값을
-        // 바로 계산합니다.
-
-        boolean check = false;
-
-        if (Crash(x, y, itm2.x, itm2.y, Player_img[0], itm2.item2_img[0])) {
-            // 이미지 넓이, 높이값을 바로 받아 계산합니다.
-            check = true;// 위 값이 true면 check에 true를 전달합니다.
-        } else {
-            check = false;
-        }
-
-        return check; // check의 값을 메소드에 리턴 시킵니다.
-    }
-
     /*------------------- E X P L O S i O N -------------------*/
     /*********************************************************************/
     /*------------------- S C O R E -------------------*/
@@ -657,25 +642,25 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         buffg.drawString("SCORE : " + enemy_kill, 1000, 70);
         // 좌표 x : 1000, y : 70에 스코어를 표시합니다.
 
-        buffg.drawString("Game.Boss Count : " + Boss_List.size(), 1000, 110);
+        //buffg.drawString("Game.Boss Count : " + Boss_List.size(), 1000, 170);
         // 좌표 x : 1000, y : 90에 플레이어 체력을 표시합니다.
 
-        buffg.drawString("Game.Missile Count : " + Missile_List.size(), 1000, 90);
+        //buffg.drawString("Game.Missile Count : " + Missile_List.size(), 1000, 190);
         // 좌표 x : 1000, y : 110에 나타난 미사일 수를 표시합니다.
 
-        buffg.drawString("Game.Enemy Count : " + Enemy_List.size(), 1000, 130);
+        //buffg.drawString("Game.Enemy Count : " + Enemy_List.size(), 1000, 130);
         // 좌표 x : 1000, y : 130에 나타난 적의 수를 표시합니다.
 
-        buffg.drawString("EMissile Count : " + EMissile_List.size(), 1000, 150);
+       // buffg.drawString("EMissile Count : " + EMissile_List.size(), 1000, 150);
         // 좌표 x : 1000, y : 130에 나타난 적의 수를 표시합니다.
 
-        buffg.drawString("player_Hp : " + player_Hp, 1000, 170);
+        buffg.drawString("피카츄 체력 : " + player_Hp, 1000, 110);
 
-        buffg.drawString("enemy_Hp : " + en.getEnemy_Hp(), 1000, 190);
+
         if(Boss_List.size()==0) {
-            buffg.drawString("boss_Hp : " + 0, 1000, 210);
+            buffg.drawString("적 체력 : " + en.getEnemy_Hp(), 1000, 90);
         }else {
-            buffg.drawString("boss_Hp : " + bs.getEnemy_Hp(), 1000, 210);
+            buffg.drawString("보스 체력 : " + bs.getEnemy_Hp(), 1000, 90);
         }
 
     }
