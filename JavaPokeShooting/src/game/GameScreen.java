@@ -16,6 +16,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,20 +31,12 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     Image buffImage; // 더블 버퍼링용(화면이 반짝거리지 않도록)
     Graphics buffg; // 더블 버퍼링용(화면이 반짝거리지 않도록)
     Toolkit tk = Toolkit.getDefaultToolkit();
-
-    Image[] iteminfo_img; // 아이템 이미지를 받아들일 이미지 변수
-    Image[] iteminfo2_img; // 아이템 이미지를 받아들일 이미지 변수
-    Image[] iteminfo3_img; // 아이템 이미지를 받아들일 이미지 변수
     public static Image[] Player_img; // 플레이어 이미지 변수
     static Image[] Player_imgatk;
 
     static Image[] Explo_img; // 폭발이펙트용 이미지배열
     public static Image[] Missile_img; // 미사일 이미지 변수
     public static Image[] EMissile_img; // 적 미사일 이미지 변수
-    static Image[] item_img; // 아이템 이미지를 받아들일 이미지 변수
-    static Image[] item2_img; // 아이템 이미지를 받아들일 이미지 변수
-    static Image[] item3_img; // 아이템 이미지를 받아들일 이미지 변수
-
     public static int x, y; // 좌표 변수
     // 키보드 입력
     KeyEvent key = new KeyEvent();
@@ -163,26 +156,6 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     "src/img/explo_" + i + ".png")
                     .getImage();
         }
-
-        iteminfo_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < iteminfo_img.length; ++i) {
-            iteminfo_img[i] = new ImageIcon(
-                    "src/img/iteminfo_" + i + ".png")
-                    .getImage();
-        }
-        iteminfo2_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < iteminfo2_img.length; ++i) {
-            iteminfo2_img[i] = new ImageIcon(
-                    "src/img/2iteminfo_" + i + ".png")
-                    .getImage();
-        }
-        iteminfo3_img = new Image[6];// 적 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < iteminfo3_img.length; ++i) {
-            iteminfo3_img[i] = new ImageIcon(
-                    "src/img/3iteminfo_" + i + ".png")
-                    .getImage();
-        }
-
 
         player_Hp = 10;
         player_Speed = 10; // 유저 캐릭터 움직이는 속도 설정
@@ -707,63 +680,63 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
 
     }
     public void Draw_ItemInfo() {// 아이템 이미지를 그리는 부분
-        ArrayList<Item> Iteminfo_List = new ArrayList<>();
-        ArrayList<Item> Iteminfo2_List = new ArrayList<>();
-        ArrayList<Item> Iteminfo3_List = new ArrayList<>();
+        List<Item> Iteminfo_List = new ArrayList<>();
+        List<Item> Iteminfo2_List = new ArrayList<>();
+        List<Item> Iteminfo3_List = new ArrayList<>();
         itm = new Item(0,0,0);
         Iteminfo_List.add(itm);
-        for (int i = 0; i < Iteminfo_List.size(); ++i) {
-            itm = (Item) Iteminfo_List.get(i);
+        for (Item item : Iteminfo_List) {
+            itm = (Item) item;
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(iteminfo_img[0], 10 ,620, this);
+                buffg.drawImage(itm.iteminfo_img[0], 10, 620, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(iteminfo_img[1], 10, 620, this);
+                buffg.drawImage(itm.iteminfo_img[1], 10, 620, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(iteminfo_img[2], 10, 620, this);
+                buffg.drawImage(itm.iteminfo_img[2], 10, 620, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(iteminfo_img[3], 10, 620, this);
+                buffg.drawImage(itm.iteminfo_img[3], 10, 620, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(iteminfo_img[4], 10, 620, this);
+                buffg.drawImage(itm.iteminfo_img[4], 10, 620, this);
             } else {
-                buffg.drawImage(iteminfo_img[5], 10, 620, this);
+                buffg.drawImage(itm.iteminfo_img[5], 10, 620, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
         itm2 = new Item(0,0,0);
         Iteminfo2_List.add(itm2);
-        for (int i = 0; i < Iteminfo2_List.size(); ++i) {
-            itm2 = (Item) Iteminfo2_List.get(i);
+        for (Item item : Iteminfo2_List) {
+            itm2 = (Item) item;
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(iteminfo2_img[0], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[0], 110, 620, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(iteminfo2_img[1], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[1], 110, 620, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(iteminfo2_img[2], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[2], 110, 620, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(iteminfo2_img[3], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[3], 110, 620, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(iteminfo2_img[4], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[4], 110, 620, this);
             } else {
-                buffg.drawImage(iteminfo2_img[5], 110, 620, this);
+                buffg.drawImage(itm.iteminfo2_img[5], 110, 620, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
         itm3 = new Item(0,0,0);
         Iteminfo3_List.add(itm3);
-        for (int i = 0; i < Iteminfo3_List.size(); ++i) {
-            itm3 = (Item) Iteminfo3_List.get(i);
+        for (Item item : Iteminfo3_List) {
+            itm3 = (Item) item;
             if ((CNT / 6 % 6) == 1) {
-                buffg.drawImage(iteminfo3_img[0], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[0], 210, 620, this);
             } else if ((CNT / 6 % 6) == 2) {
-                buffg.drawImage(iteminfo3_img[1], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[1], 210, 620, this);
             } else if ((CNT / 6 % 6) == 3) {
-                buffg.drawImage(iteminfo3_img[2], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[2], 210, 620, this);
             } else if ((CNT / 6 % 6) == 4) {
-                buffg.drawImage(iteminfo3_img[3], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[3], 210, 620, this);
             } else if ((CNT / 6 % 6) == 5) {
-                buffg.drawImage(iteminfo3_img[4], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[4], 210, 620, this);
             } else {
-                buffg.drawImage(iteminfo3_img[5], 210, 620, this);
+                buffg.drawImage(itm.iteminfo3_img[5], 210, 620, this);
             }
             // 배열에 생성된 각 적을 판별하여 이미지 그리기
         }
