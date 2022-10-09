@@ -199,7 +199,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                     gs.option();
                     trd.suspend();
                 }
-                if(player_Hp ==0){
+                if(player_Hp ==0||enemy_kill==41){
                     Thread.sleep(2000);
                     trd.interrupt();//스레드 종료
                 }
