@@ -1,7 +1,7 @@
 import game.GameIntro;
 
 public class StartGame {
-    //메인 깃
+    //깃 또 말썽이네
     public static final long start = System.currentTimeMillis();
     public static final long end = start + 10*1000; // 60 seconds * 1000 ms/sec
     public static void main(String[] args) {
