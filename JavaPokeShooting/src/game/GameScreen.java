@@ -194,11 +194,12 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 Thread.sleep(17);// 20 milli sec 로 스레드 돌리기
 
                 CNT++;
+                /* 나중에사용
                 if (key.KEY_ENTER) {
                     GameStatus gs = null;
                     gs.option();
                     trd.suspend();
-                }
+                }*/
                 if(player_Hp ==0||enemy_kill==41){
                     Thread.sleep(2000);
                     trd.interrupt();//스레드 종료
@@ -736,14 +737,14 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         // 키보드가 눌러졌다가 때어졌을때 이벤트 처리하는 곳
         key.keyReleased(e);
     }
-
+/*
     public void KeyProcess() {
         // 실제로 캐릭터 움직임 실현을 위해
         // 위에서 받아들인 키값을 바탕으로
         // 키 입력시마다 5만큼의 이동을 시킨다.
         key.KeyProcess();
 
-    }
+    }*/
     /*------------------- K E Y E V E N T -------------------*/
 
     void dispose1() {

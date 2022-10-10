@@ -1,4 +1,4 @@
-package game;
+package planned_to_be_used;/*
 
 import java.util.TimerTask;
 
@@ -11,3 +11,4 @@ public class MyTimeTask extends TimerTask {
     }
 
 }
+*/

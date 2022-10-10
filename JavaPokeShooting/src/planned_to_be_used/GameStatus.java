@@ -1,5 +1,7 @@
-package game;
-
+package planned_to_be_used;
+/*
+import game.GameIntro;
+import game.GameScreen;
 import key.event.KeyEvent;
 
 import java.awt.Color;
@@ -16,7 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+//정보창으로 사용 될 클래스
 public class GameStatus extends JFrame {
     private Image screenImage;
     private Graphics screenGraphic;
@@ -329,7 +331,7 @@ public class GameStatus extends JFrame {
         paintComponents(g);// 메뉴버튼
         this.repaint();
     }
-/*
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -353,5 +355,6 @@ public class GameStatus extends JFrame {
 			GameFrame.KeyEnter = false;
 			break;
 		}
-	}*/
+	}
 }
+*/
