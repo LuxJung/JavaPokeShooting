@@ -34,9 +34,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     public static Image[] Player_img; // 플레이어 이미지 변수
     static Image[] Player_imgatk;
 
-    static Image[] Explo_img; // 폭발이펙트용 이미지배열
-    public static Image[] Missile_img; // 미사일 이미지 변수
-    public static Image[] EMissile_img; // 적 미사일 이미지 변수
+
     public static int x, y; // 좌표 변수
     // 키보드 입력
     KeyEvent key = new KeyEvent();
@@ -69,15 +67,9 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
     public static int item_speed; // 아이템 속도 조절
 
     public static int enemy_kill;
-    int enemy_Hp; // 유저의 움직이는 속도
-
-    int[] cx = { 0, 0, 0 }; // 배경 스크롤 속도 제어용 변수
     int bx = 0; // 전체 배경 스크롤 용 변수
 
-
-
     static Thread trd; // 스레드
-    static Thread trd2; // 스레드
 
 
     public static ArrayList<Missile> BMissile_List = new ArrayList<>();
@@ -114,9 +106,7 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
         setResizable(false); // 프레임의 크기를 임의로 변경못하게 설정
         setVisible(true); // 프레임을 눈에 보이게 띄웁니다.
 
-        if (key.KEY_ENTER) {
-
-        }
+        //if (key.KEY_ENTER) {}
 
     }
 
@@ -135,21 +125,8 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             Player_imgatk[i] = new ImageIcon(
                     "src/img/new피카츄atk_" + i + ".png").getImage();
         }
-        Missile_img = new Image[4];// 전기구체 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Missile_img.length; ++i) {
-            Missile_img[i] = new ImageIcon(
-                    "src/img/Missile_" + i + ".png").getImage();
-        }
-        EMissile_img = new Image[4];// 적 미사일 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < EMissile_img.length; ++i) {
-            EMissile_img[i] = new ImageIcon(
-                    "src/img/Missl_" + i + ".png").getImage();
-        }
-        Explo_img = new Image[4];// 폭발 애니메이션 표현을 위해 이미지를 배열로 받음
-        for (int i = 0; i < Explo_img.length; ++i) {
-            Explo_img[i] = new ImageIcon(
-                    "src/img/explo_" + i + ".png").getImage();
-        }
+
+
 
         player_Hp = 10;
         player_Speed = 10; // 유저 캐릭터 움직이는 속도 설정
@@ -274,13 +251,13 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             ms = (Missile) (Missile_List.get(i));// 미사일 위치값을 확인
             if (ms.who == 0)
                 if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(Missile_img[0], ms.x, ms.y, this);
+                    buffg.drawImage(ms.Missile_img[0], ms.x, ms.y, this);
                 } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(Missile_img[1], ms.x, ms.y, this);
+                    buffg.drawImage(ms.Missile_img[1], ms.x, ms.y, this);
                 } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(Missile_img[2], ms.x, ms.y, this);
+                    buffg.drawImage(ms.Missile_img[2], ms.x, ms.y, this);
                 } else {
-                    buffg.drawImage(Missile_img[3], ms.x, ms.y, this);
+                    buffg.drawImage(ms.Missile_img[3], ms.x, ms.y, this);
                 }
             // ms.move();// 그려진 미사일을 정해진 숫자만큼 이동시키기
             if (ms.x > SCREEN_WIDTH) { // 미사일이 화면 밖으로 나가면
@@ -295,13 +272,13 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             bms = (Missile) (BMissile_List.get(k));
             if (bms.who == 2)
                 if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(EMissile_img[0], bms.x, bms.y, this);
+                    buffg.drawImage(ms.EMissile_img[0], bms.x, bms.y, this);
                 } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(EMissile_img[1], bms.x, bms.y, this);
+                    buffg.drawImage(ms.EMissile_img[1], bms.x, bms.y, this);
                 } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(EMissile_img[2], bms.x, bms.y, this);
+                    buffg.drawImage(ms.EMissile_img[2], bms.x, bms.y, this);
                 } else {
-                    buffg.drawImage(EMissile_img[3], bms.x, bms.y, this);
+                    buffg.drawImage(ms.EMissile_img[3], bms.x, bms.y, this);
                 }
             // bms.move();// 그려진 미사일을 정해진 숫자만큼 이동시키기
             if (bms.x < -200) {
@@ -312,13 +289,13 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             ems = (Missile) (EMissile_List.get(j));
             if (ems.who == 1)
                 if ((CNT / 4 % 4) == 1) {
-                    buffg.drawImage(EMissile_img[0], ems.x, ems.y, this);
+                    buffg.drawImage(ms.EMissile_img[0], ems.x, ems.y, this);
                 } else if ((CNT / 4 % 4) == 2) {
-                    buffg.drawImage(EMissile_img[1], ems.x, ems.y, this);
+                    buffg.drawImage(ms.EMissile_img[1], ems.x, ems.y, this);
                 } else if ((CNT / 4 % 4) == 3) {
-                    buffg.drawImage(EMissile_img[2], ems.x, ems.y, this);
+                    buffg.drawImage(ms.EMissile_img[2], ems.x, ems.y, this);
                 } else {
-                    buffg.drawImage(EMissile_img[3], ems.x, ems.y, this);
+                    buffg.drawImage(ms.EMissile_img[3], ems.x, ems.y, this);
                 }
             // ems.move();// 그려진 미사일을 정해진 숫자만큼 이동시키기
             if (ems.x < -200) {
@@ -551,17 +528,17 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
             if (ex.damage == 0) {
                 // 설정값이 0 이면 폭발용 이미지 그리기
                 if (ex.ex_cnt < 7) {
-                    buffg.drawImage(Explo_img[0], ex.x - Explo_img[0].getWidth(null) / 2,
-                            ex.y - Explo_img[0].getHeight(null) / 2, this);
+                    buffg.drawImage(ex.Explo_img[0], ex.x - ex.Explo_img[0].getWidth(null) / 2,
+                            ex.y - ex.Explo_img[0].getHeight(null) / 2, this);
                 } else if (ex.ex_cnt < 14) {
-                    buffg.drawImage(Explo_img[1], ex.x - Explo_img[1].getWidth(null) / 2,
-                            ex.y - Explo_img[1].getHeight(null) / 2, this);
+                    buffg.drawImage(ex.Explo_img[1], ex.x - ex.Explo_img[1].getWidth(null) / 2,
+                            ex.y - ex.Explo_img[1].getHeight(null) / 2, this);
                 } else if (ex.ex_cnt < 21) {
-                    buffg.drawImage(Explo_img[2], ex.x - Explo_img[2].getWidth(null) / 2,
-                            ex.y - Explo_img[2].getHeight(null) / 2, this);
+                    buffg.drawImage(ex.Explo_img[2], ex.x - ex.Explo_img[2].getWidth(null) / 2,
+                            ex.y - ex.Explo_img[2].getHeight(null) / 2, this);
                 } else if (ex.ex_cnt < 28) {
-                    buffg.drawImage(Explo_img[3], ex.x - Explo_img[3].getWidth(null) / 2,
-                            ex.y - Explo_img[3].getHeight(null) / 2, this);
+                    buffg.drawImage(ex.Explo_img[3], ex.x - ex.Explo_img[3].getWidth(null) / 2,
+                            ex.y - ex.Explo_img[3].getHeight(null) / 2, this);
                 } else if (ex.ex_cnt > 28) {
                     Explosion_List.remove(i);
                     ex.ex_cnt = 0;
@@ -570,15 +547,15 @@ public class GameScreen extends JFrame implements KeyListener, Runnable {
                 }
             } else { // 설정값이 1이면 단순 피격용 이미지 그리기
                 if (ex.ex_cnt < 7) {
-                    buffg.drawImage(Explo_img[0], ex.x + 100, ex.y + 38, this);
+                    buffg.drawImage(ex.Explo_img[0], ex.x + 100, ex.y + 38, this);
                 } else if (ex.ex_cnt < 14) {
-                    buffg.drawImage(Explo_img[1], ex.x + 60, ex.y + 25, this);
+                    buffg.drawImage(ex.Explo_img[1], ex.x + 60, ex.y + 25, this);
                 } else if (ex.ex_cnt < 21) {
-                    buffg.drawImage(Explo_img[2], ex.x + 5, ex.y + 5, this);
+                    buffg.drawImage(ex.Explo_img[2], ex.x + 5, ex.y + 5, this);
                 } else if (ex.ex_cnt < 28) {
-                    buffg.drawImage(Explo_img[3], ex.x + 25, ex.y + 50, this);
+                    buffg.drawImage(ex.Explo_img[3], ex.x + 25, ex.y + 50, this);
                 } else if (ex.ex_cnt < 35) {
-                    buffg.drawImage(Explo_img[1], ex.x - 15, ex.y + 13, this);
+                    buffg.drawImage(ex.Explo_img[1], ex.x - 15, ex.y + 13, this);
                 }
 
                 else if (ex.ex_cnt > 35) {

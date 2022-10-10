@@ -1,6 +1,6 @@
 package game.set;
 
-public class GameSet extends Thread{
+public class GameSet {
     public int x;
     public int y;
     protected static int enemy_speed = 7;

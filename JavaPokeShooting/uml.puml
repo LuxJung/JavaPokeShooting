@@ -5,6 +5,8 @@ class game.set.element.Missile {
 ~ int angle
 ~ int speed
 + int who
++ {static} Image[] Missile_img
++ {static} Image[] EMissile_img
 + void move()
 + {static} boolean fire()
 + {static} void Process_Missile(KeyEvent)
@@ -62,6 +64,7 @@ class game.set.effect.Explosion {
 + int y
 + int ex_cnt
 + int damage
++ Image[] Explo_img
 + void effect()
 }
 class game.set.GameSet {
@@ -94,9 +97,6 @@ class game.GameScreen {
 ~ Toolkit tk
 + {static} Image[] Player_img
 ~ {static} Image[] Player_imgatk
-~ {static} Image[] Explo_img
-+ {static} Image[] Missile_img
-+ {static} Image[] EMissile_img
 + {static} int x
 ~ KeyEvent key
 + {static} int CNT
@@ -118,11 +118,8 @@ class game.GameScreen {
 + {static} int player_Status
 + {static} int item_speed
 + {static} int enemy_kill
-~ int enemy_Hp
-~ int[] cx
 ~ int bx
 ~ {static} Thread trd
-~ {static} Thread trd2
 + {static} ArrayList<Missile> BMissile_List
 + {static} ArrayList<Missile> EMissile_List
 + {static} ArrayList<Missile> Missile_List
@@ -189,7 +186,6 @@ game.set.GameSet <|-- game.set.element.Missile
 game.set.GameSet <|-- game.set.element.Item
 javax.swing.JFrame <|-- game.GameIntro
 game.set.GameSet <|-- game.set.effect.Explosion
-game.set.Thread <|-- game.set.GameSet
 game.set.enemy.Runnable <|.. game.set.enemy.Boss
 game.set.GameSet <|-- game.set.enemy.Boss
 java.awt.event.KeyListener <|.. game.GameScreen
