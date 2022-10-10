@@ -1,0 +1,201 @@
+@startuml
+class game.set.element.Missile {
++ int x
++ int y
+~ int angle
+~ int speed
++ int who
++ void move()
++ {static} boolean fire()
++ {static} void Process_Missile(KeyEvent)
+}
+class game.background.BackGroundImg {
++ Image backGround1
++ Image backGround2
++ Image gameClear
++ Image gameOver
++ Image bossText
+}
+class game.set.element.Item {
++ int item_speed
++ int x
++ int y
++ Image[] item_img
++ Image[] item2_img
++ Image[] item3_img
++ Image[] iteminfo_img
++ Image[] iteminfo2_img
++ Image[] iteminfo3_img
+~ Missile ms
+~ GameScreen gf
++ void moveitem()
++ void firespeed()
+}
+class StartGame {
++ {static} long start
++ {static} long end
++ {static} void main(String[])
+}
+class game.GameIntro {
+- Image screenImage
+- Graphics screenGraphic
+~ {static} GameScreen gf
+- ImageIcon menuExitOn
+- ImageIcon menuExitOff
+- ImageIcon introStartOn
+- ImageIcon introStartOff
+- ImageIcon introExitOn
+- ImageIcon introExitOff
+- Image introBackground
+- JLabel menuBar
+- JButton menuExit
+- JButton startButton
+- JButton exitButton
+- int mouseX
++ void paint(Graphics)
++ void screenDraw(Graphics)
++ void start()
++ {static} void GameFrameOff()
+}
+class game.set.effect.Explosion {
++ int x
++ int y
++ int ex_cnt
++ int damage
++ void effect()
+}
+class game.set.GameSet {
++ int x
++ int y
+# {static} int enemy_speed
+}
+class game.set.enemy.Boss {
+~ int count
+~ int speed
+~ int enemy_Hp
+~ Boss bs
+~ Enemy en
+~ GameScreen gf
++ Image[] Boss_img
+~ Timer boss_timer
+~ TimerTask boss_task
++ int getEnemy_Hp()
++ void setEnemy_Hp(int)
++ void move()
++ void run()
++ void appear_Boss()
++ void process_Boss()
+}
+class game.GameScreen {
++ {static} int SCREEN_WIDTH
++ {static} int SCREEN_HEIGHT
+~ Image buffImage
+~ Graphics buffg
+~ Toolkit tk
++ {static} Image[] Player_img
+~ {static} Image[] Player_imgatk
+~ {static} Image[] Explo_img
++ {static} Image[] Missile_img
++ {static} Image[] EMissile_img
++ {static} int x
+~ KeyEvent key
++ {static} int CNT
++ {static} Missile ms
++ {static} Missile ems
++ {static} Missile bms
++ {static} Enemy en
++ {static} Boss bs
++ {static} Explosion ex
++ {static} Item itm
++ {static} Item itm2
++ {static} Item itm3
++ {static} int missile_status
++ {static} int missile_Speed
++ {static} int Emissile_Speed
++ {static} int fire_Speed
+~ {static} int player_Speed
++ {static} int player_Hp
++ {static} int player_Status
++ {static} int item_speed
++ {static} int enemy_kill
+~ int enemy_Hp
+~ int[] cx
+~ int bx
+~ {static} Thread trd
+~ {static} Thread trd2
++ {static} ArrayList<Missile> BMissile_List
++ {static} ArrayList<Missile> EMissile_List
++ {static} ArrayList<Missile> Missile_List
++ {static} ArrayList<Explosion> Explosion_List
++ {static} ArrayList<Boss> Boss_List
++ {static} ArrayList<Enemy> Enemy_List
++ {static} ArrayList<Item> Item_List
++ {static} ArrayList<Item> Item2_List
++ {static} ArrayList<Item> Item3_List
++ BackGroundImg bg
++ void init()
++ void start()
++ void run()
++ void paint(Graphics)
++ void screenDraw(Graphics)
++ void Draw_Player()
++ void Draw_Missile()
++ void Draw_Enemy()
++ void Draw_Item()
++ void Process_Item()
++ void Draw_Bosstext()
++ void Draw_GamePlayState()
++ void Draw_Background()
++ void Draw_Explosion()
++ void Process_Explosion()
++ {static} boolean Crash(int,int,int,int,Image,Image)
++ void Draw_Score()
++ void Draw_ItemInfo()
++ void keyTyped(java.awt.event.KeyEvent)
++ void keyPressed(java.awt.event.KeyEvent)
++ void keyReleased(java.awt.event.KeyEvent)
+~ void dispose1()
+}
+class game.set.enemy.Enemy {
+~ int speed
+~ {static} Runnable Etrd
+~ GameScreen gf
+~ int enemy_Hp
+~ Enemy en
++ Image[] Enemy_img
++ void setImgEnemy()
++ Image getEnemy_img()
++ void move()
++ void run()
++ void Process_Enemy()
++ int getEnemy_Hp()
++ void setEnemy_Hp(int)
+}
+class key.event.KeyEvent {
++ boolean KEY_ENTER
++ boolean KEY_UP
++ boolean KEY_DOWN
++ boolean KEY_LEFT
++ boolean KEY_RIGHT
++ boolean KEY_SPACE
++ void keyTyped(java.awt.event.KeyEvent)
++ void keyPressed(java.awt.event.KeyEvent)
++ void keyReleased(java.awt.event.KeyEvent)
++ void KeyProcess()
+}
+
+
+game.set.GameSet <|-- game.set.element.Missile
+game.set.GameSet <|-- game.set.element.Item
+javax.swing.JFrame <|-- game.GameIntro
+game.set.GameSet <|-- game.set.effect.Explosion
+game.set.Thread <|-- game.set.GameSet
+game.set.enemy.Runnable <|.. game.set.enemy.Boss
+game.set.GameSet <|-- game.set.enemy.Boss
+java.awt.event.KeyListener <|.. game.GameScreen
+game.Runnable <|.. game.GameScreen
+javax.swing.JFrame <|-- game.GameScreen
+game.set.enemy.Runnable <|.. game.set.enemy.Enemy
+game.set.GameSet <|-- game.set.enemy.Enemy
+java.awt.event.KeyListener <|.. key.event.KeyEvent
+@enduml
